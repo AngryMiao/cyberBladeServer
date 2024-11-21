@@ -1,0 +1,51 @@
+# 用于判断是否为测试环境
+mode:
+  dev
+
+# app 启动的host和port
+app:
+  host: ""
+  port: 9010
+
+# db
+db:
+  dialect: "postgres"
+  dsn: "host=localhost user=angrymiao password=123456 dbname=angrymiao-ai port=5432 sslmode=disable TimeZone=Asia/Shanghai"
+
+jwt:
+  key: Bearer
+  issuer: issuer
+  publicKeyPath: "certs/jwt/test/public.pem"
+
+redisCache:
+  addr: localhost:6379
+  password: ""
+  db: 6
+  service: ai
+
+
+allowHosts:
+  - localhost
+
+rpc:
+  user:
+    address: "localhost:9003"
+
+oss:
+  accessKeyID: accessKeyID
+  accessKeySecret: accessKeySecret
+  endpoint: endpoint
+  bucket: bucket
+  host: host
+  domain: domain
+  expireTime: 60 # second
+
+openAi:
+  key: "xxx123"
+  baseUrl: "https://aihubmix.com/v1"
+
+discord:
+  token: "xxx123"
+
+doubao:
+  ApiKey: "xxx123"

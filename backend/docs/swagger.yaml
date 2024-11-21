@@ -1,0 +1,6821 @@
+basePath: /api
+definitions:
+  address.Address:
+    properties:
+      city:
+        type: string
+      consignee:
+        type: string
+      country:
+        type: string
+      create_time:
+        type: string
+      detail:
+        type: string
+      district:
+        type: string
+      id:
+        type: integer
+      is_default:
+        type: boolean
+      phone:
+        type: string
+      province:
+        type: string
+      update_time:
+        type: string
+      user_id:
+        type: integer
+    type: object
+  address.BodyAddress:
+    properties:
+      city:
+        type: string
+      consignee:
+        type: string
+      country:
+        type: string
+      detail:
+        type: string
+      district:
+        type: string
+      is_default:
+        type: boolean
+      phone:
+        type: string
+      province:
+        type: string
+    type: object
+  alioss.PolicyToken:
+    properties:
+      access_id:
+        type: string
+      callback:
+        type: string
+      expire:
+        type: integer
+      host:
+        type: string
+      path:
+        type: string
+      policy:
+        type: string
+      signature:
+        type: string
+    type: object
+  attr.Attr:
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+      priority:
+        type: integer
+      values:
+        items:
+          type: string
+        type: array
+    type: object
+  blocked.UserList:
+    properties:
+      ids:
+        items:
+          type: integer
+        type: array
+    required:
+    - ids
+    type: object
+  cart.BodyCalc:
+    properties:
+      products:
+        items:
+          $ref: '#/definitions/product.BodyCalcProduct'
+        type: array
+      user_coupon_id:
+        type: integer
+    type: object
+  cart.BodyCartItem:
+    properties:
+      number:
+        type: integer
+      product_id:
+        type: integer
+      select:
+        type: boolean
+      sku_id:
+        type: integer
+    type: object
+  cart.BodyCartSkuIDList:
+    properties:
+      is_force_refresh:
+        type: boolean
+      sku_ids:
+        items:
+          type: integer
+        type: array
+    required:
+    - sku_ids
+    type: object
+  cart.CacheItem:
+    properties:
+      create_at:
+        type: string
+      number:
+        type: integer
+      product_id:
+        type: integer
+      select:
+        type: boolean
+      sku_id:
+        type: integer
+      update_at:
+        type: string
+    type: object
+  cart.Item:
+    properties:
+      create_at:
+        type: string
+      number:
+        type: integer
+      product:
+        $ref: '#/definitions/product.Product'
+      product_id:
+        type: integer
+      select:
+        type: boolean
+      sku:
+        $ref: '#/definitions/sku.SKU'
+      sku_id:
+        type: integer
+      update_at:
+        type: string
+    type: object
+  cart.ProductBookedInfo:
+    properties:
+      booked:
+        type: integer
+      is_exceed:
+        type: boolean
+      limit:
+        type: integer
+      type:
+        type: string
+    type: object
+  cart.RespCalcProduct:
+    properties:
+      amount:
+        type: number
+      discount_amount:
+        type: number
+      has_discount:
+        type: boolean
+      number:
+        type: integer
+      product_id:
+        type: integer
+      sku_id:
+        type: integer
+    type: object
+  cart.RespCartCheckInfo:
+    properties:
+      number:
+        type: integer
+      product_booked_info:
+        items:
+          $ref: '#/definitions/cart.ProductBookedInfo'
+        type: array
+      sku_booked_info:
+        $ref: '#/definitions/cart.SkuBookedInfo'
+      sku_id:
+        type: integer
+    type: object
+  cart.RespCartSkuCount:
+    properties:
+      count:
+        type: integer
+      sku_id:
+        type: integer
+      sum:
+        type: integer
+    type: object
+  cart.SkuBookedInfo:
+    properties:
+      booked:
+        type: integer
+      has_stock:
+        type: boolean
+      is_exceed:
+        type: boolean
+      limit:
+        type: integer
+    type: object
+  comment.BodyCommentCreate:
+    properties:
+      content:
+        type: string
+      medias:
+        items:
+          additionalProperties: true
+          type: object
+        type: array
+      score:
+        type: integer
+      sub_order_no:
+        type: string
+    type: object
+  comment.Comment:
+    properties:
+      content:
+        type: string
+      create_time:
+        type: string
+      id:
+        type: integer
+      medias:
+        items:
+          additionalProperties: true
+          type: object
+        type: array
+      score:
+        type: integer
+      update_time:
+        type: string
+      user_info:
+        $ref: '#/definitions/user.SimplifiedUser'
+    type: object
+  comment.CommentInfo:
+    properties:
+      avg:
+        type: number
+      count:
+        type: integer
+      product_id:
+        type: integer
+      sum:
+        type: integer
+    type: object
+  coupon.AggregateCoupon:
+    properties:
+      coupon:
+        $ref: '#/definitions/coupon.Coupon'
+      coupon_rule:
+        $ref: '#/definitions/couponrule.CouponRule'
+    type: object
+  coupon.BodyAggregateCouponCreate:
+    properties:
+      coupon:
+        $ref: '#/definitions/coupon.BodyCreate'
+      coupon_rule:
+        $ref: '#/definitions/couponrule.BodyCreate'
+    required:
+    - coupon
+    type: object
+  coupon.BodyAggregateCouponUpdate:
+    properties:
+      coupon:
+        $ref: '#/definitions/coupon.BodyUpdate'
+      coupon_rule:
+        $ref: '#/definitions/couponrule.BodyUpdate'
+    required:
+    - coupon
+    type: object
+  coupon.BodyCreate:
+    properties:
+      amount_threshold:
+        type: integer
+      category:
+        allOf:
+        - $ref: '#/definitions/coupon.Category'
+        enum:
+        - special_offer
+        - early_bird
+      description:
+        type: string
+      discount:
+        type: integer
+      is_active:
+        type: boolean
+      max_amount_limit:
+        type: integer
+      save_amount:
+        type: integer
+      title:
+        type: string
+      total_count:
+        type: integer
+      type:
+        allOf:
+        - $ref: '#/definitions/coupon.Type'
+        enum:
+        - save
+        - discount
+        - early_bird
+    required:
+    - category
+    type: object
+  coupon.BodyIncreaseNumber:
+    properties:
+      total_count:
+        type: integer
+    required:
+    - total_count
+    type: object
+  coupon.BodyUpdate:
+    properties:
+      amount_threshold:
+        type: integer
+      category:
+        allOf:
+        - $ref: '#/definitions/coupon.Category'
+        enum:
+        - special_offer
+        - early_bird
+      description:
+        type: string
+      discount:
+        type: integer
+      is_active:
+        type: boolean
+      save_amount:
+        type: integer
+      title:
+        type: string
+      total_count:
+        type: integer
+      type:
+        allOf:
+        - $ref: '#/definitions/coupon.Type'
+        enum:
+        - save
+        - discount
+        - early_bird
+    required:
+    - category
+    type: object
+  coupon.Category:
+    enum:
+    - special_offer
+    - early_bird
+    type: string
+    x-enum-varnames:
+    - CategorySpecialOffer
+    - CategoryEarlyBird
+  coupon.Coupon:
+    properties:
+      amount_threshold:
+        type: integer
+      category:
+        $ref: '#/definitions/coupon.Category'
+      couponrule_id:
+        type: integer
+      create_time:
+        type: string
+      description:
+        type: string
+      discount:
+        type: integer
+      id:
+        type: integer
+      is_active:
+        type: boolean
+      max_amount_limit:
+        type: integer
+      save_amount:
+        type: integer
+      title:
+        type: string
+      total_count:
+        type: integer
+      type:
+        $ref: '#/definitions/coupon.Type'
+      update_time:
+        type: string
+      uuid:
+        type: string
+    type: object
+  coupon.RespClaimInfo:
+    properties:
+      claimed:
+        type: integer
+    type: object
+  coupon.RespCouponInfo:
+    properties:
+      id:
+        type: integer
+      is_remained:
+        type: boolean
+      max_number:
+        type: integer
+      user_claimed_number:
+        type: integer
+      user_max_number:
+        type: integer
+    type: object
+  coupon.Type:
+    enum:
+    - save
+    - discount
+    - early_bird
+    type: string
+    x-enum-varnames:
+    - TypeSave
+    - TypeDiscount
+    - TypeEarlyBird
+  couponactivity.ActivityType:
+    enum:
+    - public
+    - private
+    type: string
+    x-enum-varnames:
+    - ActivityTypePublic
+    - ActivityTypePrivate
+  couponactivity.BodyClaim:
+    properties:
+      coupon_activity_custom_id:
+        type: string
+      coupon_uuid:
+        type: string
+    required:
+    - coupon_activity_custom_id
+    - coupon_uuid
+    type: object
+  couponactivity.BodyCreate:
+    properties:
+      activity_type:
+        allOf:
+        - $ref: '#/definitions/couponactivity.ActivityType'
+        enum:
+        - public
+        - private
+      coupon_ids:
+        items:
+          type: integer
+        type: array
+      custom_id:
+        type: string
+      description:
+        type: string
+      end_at:
+        type: string
+      is_active:
+        type: boolean
+      start_at:
+        type: string
+      title:
+        type: string
+      total_count:
+        type: integer
+    required:
+    - custom_id
+    - description
+    - title
+    type: object
+  couponactivity.BodyUpdate:
+    properties:
+      activity_type:
+        allOf:
+        - $ref: '#/definitions/couponactivity.ActivityType'
+        enum:
+        - public
+        - private
+      coupon_ids:
+        items:
+          type: integer
+        type: array
+      custom_id:
+        type: string
+      description:
+        type: string
+      end_at:
+        type: string
+      id:
+        type: integer
+      is_active:
+        type: boolean
+      start_at:
+        type: string
+      title:
+        type: string
+      total_count:
+        type: integer
+    required:
+    - custom_id
+    - description
+    - title
+    type: object
+  couponactivity.CouponActivity:
+    properties:
+      activity_type:
+        $ref: '#/definitions/couponactivity.ActivityType'
+      coupon_ids:
+        items:
+          type: integer
+        type: array
+      coupon_infos:
+        items:
+          $ref: '#/definitions/coupon.AggregateCoupon'
+        type: array
+      create_time:
+        type: string
+      custom_id:
+        type: string
+      description:
+        type: string
+      end_at:
+        type: string
+      id:
+        type: integer
+      is_active:
+        type: boolean
+      start_at:
+        type: string
+      title:
+        type: string
+      total_count:
+        type: integer
+      update_time:
+        type: string
+    type: object
+  couponactivity.RespClaimInfo:
+    properties:
+      claimed:
+        type: integer
+    type: object
+  couponactivity.RespCouponActivityInfo:
+    properties:
+      coupon_infos:
+        items:
+          $ref: '#/definitions/coupon.RespCouponInfo'
+        type: array
+      is_remained:
+        type: boolean
+      max_number:
+        type: integer
+    type: object
+  couponactivitycode.BodyBind:
+    properties:
+      activity_code:
+        type: string
+      category:
+        enum:
+        - special_offer
+        - early_bird
+        type: string
+    required:
+    - category
+    type: object
+  couponactivitycode.BodyBulkCreate:
+    properties:
+      coupon_activity_id:
+        type: integer
+      coupon_id:
+        type: integer
+      number:
+        type: integer
+    required:
+    - coupon_activity_id
+    - coupon_id
+    - number
+    type: object
+  couponactivitycode.BodyUpdate:
+    properties:
+      claim_at:
+        type: string
+      id:
+        type: integer
+      send_flag:
+        allOf:
+        - $ref: '#/definitions/couponactivitycode.SendFlag'
+        enum:
+        - manual
+      status:
+        allOf:
+        - $ref: '#/definitions/couponactivitycode.Status'
+        enum:
+        - canceled
+        - claimed
+      user_id:
+        type: integer
+    type: object
+  couponactivitycode.CouponActivityCode:
+    properties:
+      activity_code:
+        type: string
+      claim_at:
+        type: string
+      coupon_activity_id:
+        type: integer
+      coupon_id:
+        type: integer
+      create_time:
+        type: string
+      id:
+        type: integer
+      send_flag:
+        $ref: '#/definitions/couponactivitycode.SendFlag'
+      status:
+        $ref: '#/definitions/couponactivitycode.Status'
+      update_time:
+        type: string
+      user_id:
+        type: integer
+    type: object
+  couponactivitycode.RespBulkCreate:
+    properties:
+      count:
+        type: integer
+      error_msg:
+        type: string
+      results:
+        items:
+          type: object
+        type: array
+    type: object
+  couponactivitycode.SendFlag:
+    enum:
+    - manual
+    - system
+    type: string
+    x-enum-varnames:
+    - SendFlagManual
+    - SendFlagSystem
+  couponactivitycode.Status:
+    enum:
+    - unused
+    - claimed
+    - canceled
+    type: string
+    x-enum-varnames:
+    - StatusUnused
+    - StatusClaimed
+    - StatusCanceled
+  couponrule.BodyCreate:
+    properties:
+      end_at:
+        type: string
+      per_claim_number:
+        type: integer
+      start_at:
+        type: string
+      validity_date_type:
+        allOf:
+        - $ref: '#/definitions/couponrule.ValidityDateType'
+        enum:
+        - fixed
+        - since_today
+      validity_days:
+        type: integer
+      validity_goods_type:
+        allOf:
+        - $ref: '#/definitions/couponrule.ValidityGoodsType'
+        enum:
+        - all
+        - product
+      validity_goods_type_ids:
+        items:
+          type: integer
+        type: array
+    required:
+    - per_claim_number
+    type: object
+  couponrule.BodyUpdate:
+    properties:
+      end_at:
+        type: string
+      per_claim_number:
+        type: integer
+      start_at:
+        type: string
+      validity_date_type:
+        allOf:
+        - $ref: '#/definitions/couponrule.ValidityDateType'
+        enum:
+        - fixed
+        - since_today
+      validity_days:
+        type: integer
+      validity_goods_type:
+        allOf:
+        - $ref: '#/definitions/couponrule.ValidityGoodsType'
+        enum:
+        - all
+        - product
+      validity_goods_type_ids:
+        items:
+          type: integer
+        type: array
+    required:
+    - per_claim_number
+    type: object
+  couponrule.CouponRule:
+    properties:
+      create_time:
+        type: string
+      end_at:
+        type: string
+      id:
+        type: integer
+      per_claim_number:
+        type: integer
+      start_at:
+        type: string
+      update_time:
+        type: string
+      uuid:
+        type: string
+      validity_date_type:
+        $ref: '#/definitions/couponrule.ValidityDateType'
+      validity_days:
+        type: integer
+      validity_goods_type:
+        $ref: '#/definitions/couponrule.ValidityGoodsType'
+      validity_goods_type_ids:
+        items:
+          type: integer
+        type: array
+    type: object
+  couponrule.ValidityDateType:
+    enum:
+    - fixed
+    - since_today
+    type: string
+    x-enum-varnames:
+    - ValidityDateTypeFixed
+    - ValidityDateTypeSinceToday
+  couponrule.ValidityGoodsType:
+    enum:
+    - all
+    - product
+    type: string
+    x-enum-varnames:
+    - ValidityGoodsTypeAll
+    - ValidityGoodsTypeProduct
+  couponsend.BodyCreate:
+    properties:
+      content:
+        type: string
+      title:
+        type: string
+      values:
+        items:
+          $ref: '#/definitions/couponsend.Value'
+        type: array
+    required:
+    - content
+    - title
+    - values
+    type: object
+  couponsend.BodySend:
+    properties:
+      codes:
+        items:
+          type: string
+        type: array
+      is_all:
+        type: boolean
+    type: object
+  couponsend.CouponSend:
+    properties:
+      content:
+        type: string
+      create_time:
+        type: string
+      creator:
+        type: integer
+      id:
+        type: integer
+      results:
+        additionalProperties:
+          items:
+            $ref: '#/definitions/couponsend.Result'
+          type: array
+        type: object
+      title:
+        type: string
+      update_time:
+        type: string
+      updater:
+        type: integer
+      values:
+        items:
+          $ref: '#/definitions/couponsend.Value'
+        type: array
+    type: object
+  couponsend.Result:
+    properties:
+      coupon_activity_code:
+        type: string
+      create_time:
+        type: string
+      error_msg:
+        type: string
+      error_type:
+        enum:
+        - not_found
+        - used
+        - update_error
+        type: string
+      is_success:
+        type: boolean
+    type: object
+  couponsend.Value:
+    properties:
+      coupon_activity_code:
+        type: string
+      others:
+        additionalProperties: true
+        type: object
+      user_id:
+        type: integer
+    required:
+    - coupon_activity_code
+    - user_id
+    type: object
+  couponsync.BodySyncUserCoupon:
+    type: object
+  couponsync.CouponSync:
+    properties:
+      coupon_id:
+        type: integer
+      create_time:
+        type: string
+      creator:
+        type: integer
+      id:
+        type: integer
+      update_time:
+        type: string
+      updater:
+        type: integer
+    type: object
+  delay.UserListInfo:
+    properties:
+      duration:
+        description: Duration 间隔时间单位为秒, min，max [0, 60]
+        type: integer
+      ids:
+        items:
+          type: integer
+        type: array
+    required:
+    - duration
+    - ids
+    type: object
+  discuss.BodyDiscussCreate:
+    properties:
+      content:
+        type: string
+      object_id:
+        type: integer
+    required:
+    - object_id
+    type: object
+  discuss.ContentType:
+    enum:
+    - product
+    - discuss
+    type: string
+    x-enum-varnames:
+    - ContentTypeProduct
+    - ContentTypeDiscuss
+  discuss.Discuss:
+    properties:
+      content:
+        type: string
+      content_type:
+        $ref: '#/definitions/discuss.ContentType'
+      create_time:
+        type: string
+      id:
+        type: integer
+      object_id:
+        type: integer
+      update_time:
+        type: string
+      user_info:
+        $ref: '#/definitions/user.SimplifiedUser'
+    type: object
+  drawserializer.Draw:
+    properties:
+      ID:
+        type: integer
+      code:
+        type: string
+      create_time:
+        type: string
+      email:
+        type: string
+      is_win:
+        type: boolean
+      nickname:
+        type: string
+      prize_type:
+        type: string
+      redeem_ime:
+        type: string
+      update_time:
+        type: string
+      user_id:
+        type: integer
+    type: object
+  drawserializer.WinningRegBody:
+    properties:
+      code:
+        maxLength: 64
+        type: string
+      email:
+        type: string
+      nickname:
+        maxLength: 64
+        type: string
+    required:
+    - code
+    - email
+    - nickname
+    type: object
+  ent.NFTNumber:
+    properties:
+      code:
+        description: Code holds the value of the "code" field.
+        type: string
+      create_time:
+        description: CreateTime holds the value of the "create_time" field.
+        type: string
+      email:
+        description: Email holds the value of the "email" field.
+        type: string
+      id:
+        description: ID of the ent.
+        type: integer
+      name:
+        description: Name holds the value of the "name" field.
+        type: string
+      number:
+        description: Number holds the value of the "number" field.
+        type: integer
+      order_no:
+        description: OrderNo holds the value of the "order_no" field.
+        type: string
+      section_id:
+        description: SectionID holds the value of the "section_id" field.
+        type: integer
+      update_time:
+        description: UpdateTime holds the value of the "update_time" field.
+        type: string
+    type: object
+  exchange.BodyExchangeCreate:
+    properties:
+      is_active:
+        type: boolean
+      medias:
+        items:
+          type: object
+        type: array
+      name:
+        type: string
+      priority:
+        type: integer
+      product_url:
+        type: string
+      tokens:
+        items:
+          type: object
+        type: array
+    type: object
+  exchange.BodyExchangeUpdate:
+    properties:
+      is_active:
+        type: boolean
+      medias:
+        items:
+          type: string
+        type: array
+      name:
+        type: string
+      priority:
+        type: integer
+      product_url:
+        type: string
+      tokens:
+        items:
+          type: object
+        type: array
+    type: object
+  exchange.NFTExchange:
+    properties:
+      create_time:
+        type: string
+      id:
+        type: integer
+      is_active:
+        type: boolean
+      medias:
+        items:
+          type: object
+        type: array
+      name:
+        type: string
+      priority:
+        type: integer
+      product_url:
+        type: string
+      tokens:
+        items:
+          type: object
+        type: array
+      update_time:
+        type: string
+    type: object
+  express.BodyCreate:
+    properties:
+      express_no:
+        type: string
+      sub_order_no:
+        type: string
+      supplier:
+        description: Supplier SF 顺丰快递; EMS 邮政快递; YTO 圆通快递; STO 申通快递; ZTO 中通快递; YUNDA
+          韵达快递; HTKY 百世汇通；JKL 京东物流；UNKNOWN 其他
+        type: string
+    required:
+    - express_no
+    - sub_order_no
+    - supplier
+    type: object
+  express.BodyExpressCountInfo:
+    properties:
+      sent:
+        type: integer
+      total:
+        type: integer
+    type: object
+  express.BodyUpdate:
+    properties:
+      express_no:
+        type: string
+      supplier:
+        description: Supplier SF 顺丰快递; EMS 邮政快递; YTO 圆通快递; STO 申通快递; ZTO 中通快递; YUNDA
+          韵达快递; HTKY 百世汇通；JKL 京东物流；UNKNOWN 其他
+        type: string
+    required:
+    - express_no
+    - supplier
+    type: object
+  express.Express:
+    properties:
+      address_info:
+        additionalProperties: true
+        type: object
+      create_time:
+        type: string
+      express_no:
+        type: string
+      id:
+        type: integer
+      is_active:
+        type: boolean
+      sub_order_id:
+        type: integer
+      supplier:
+        type: string
+      update_time:
+        type: string
+    type: object
+  expresssupplier.Supplier:
+    properties:
+      code:
+        type: string
+      name:
+        type: string
+      verbose_name:
+        type: string
+    required:
+    - code
+    - name
+    - verbose_name
+    type: object
+  follow.BodyProductFollowCreate:
+    properties:
+      is_active:
+        type: boolean
+      product_id:
+        type: integer
+    required:
+    - is_active
+    - product_id
+    type: object
+  globalproducer.BodyCreate:
+    properties:
+      name_cn:
+        type: string
+      name_en:
+        type: string
+    type: object
+  globalproducer.BodyUpdate:
+    properties:
+      name_cn:
+        type: string
+      name_en:
+        type: string
+    type: object
+  globalproducer.GlobalProducer:
+    properties:
+      create_time:
+        type: string
+      id:
+        type: integer
+      name_cn:
+        type: string
+      name_en:
+        type: string
+      update_time:
+        type: string
+    type: object
+  goods.BodyCreate:
+    properties:
+      code:
+        type: string
+      coin_reward:
+        type: integer
+      name:
+        type: string
+    type: object
+  goods.BodyUpdate:
+    properties:
+      code:
+        type: string
+      coin_reward:
+        type: integer
+      id:
+        type: integer
+      name:
+        type: string
+    type: object
+  goods.Goods:
+    properties:
+      code:
+        type: string
+      coin_reward:
+        type: integer
+      create_time:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      update_time:
+        type: string
+    type: object
+  hatsu.BodyAddOrders:
+    properties:
+      order_nos:
+        items:
+          type: string
+        type: array
+      section_id:
+        type: integer
+    type: object
+  hatsu.BodyCreateInfo:
+    properties:
+      code:
+        type: string
+      email:
+        type: string
+      name:
+        type: string
+      number:
+        type: integer
+      order_no:
+        type: string
+    required:
+    - code
+    - email
+    - name
+    - number
+    - order_no
+    type: object
+  hatsu.RespGetInfo:
+    properties:
+      count:
+        type: integer
+      order_info:
+        $ref: '#/definitions/ent.NFTNumber'
+      section_info:
+        $ref: '#/definitions/hatsu.Section'
+      select_info:
+        properties:
+          count:
+            type: integer
+          numbers:
+            items:
+              type: integer
+            type: array
+        type: object
+      user_index:
+        type: integer
+    type: object
+  hatsu.Section:
+    properties:
+      end:
+        type: integer
+      id:
+        type: integer
+      start:
+        type: integer
+    type: object
+  hupun.BodySyncOrder:
+    properties:
+      order_nos:
+        items:
+          type: string
+        type: array
+    required:
+    - order_nos
+    type: object
+  hupun.BodySyncProduct:
+    properties:
+      ids:
+        items:
+          type: integer
+        type: array
+    required:
+    - ids
+    type: object
+  invoice.BodyCreate:
+    properties:
+      invoice_no:
+        type: string
+      order_no:
+        type: string
+      type:
+        allOf:
+        - $ref: '#/definitions/invoice.Type'
+        enum:
+        - value_added_tax_invoice
+        - value_added_tax_special_invoice
+    required:
+    - invoice_no
+    - order_no
+    - type
+    type: object
+  invoice.BodyUpdate:
+    properties:
+      invoice_no:
+        type: string
+      type:
+        allOf:
+        - $ref: '#/definitions/invoice.Type'
+        enum:
+        - value_added_tax_invoice
+        - value_added_tax_special_invoice
+    required:
+    - invoice_no
+    - type
+    type: object
+  invoice.Invoice:
+    properties:
+      create_time:
+        type: string
+      id:
+        type: integer
+      invoice_no:
+        type: string
+      order_id:
+        type: integer
+      type:
+        $ref: '#/definitions/invoice.Type'
+      update_time:
+        type: string
+    type: object
+  invoice.Type:
+    enum:
+    - value_added_tax_invoice
+    - value_added_tax_special_invoice
+    type: string
+    x-enum-varnames:
+    - TypeValueAddedTaxInvoice
+    - TypeValueAddedTaxSpecialInvoice
+  keyboardcustom.Platform:
+    enum:
+    - H5
+    - H5
+    - shopify
+    type: string
+    x-enum-varnames:
+    - DefaultPlatform
+    - PlatformH5
+    - PlatformShopify
+  keyboardcustomserializer.BodyKeyboardCustom:
+    properties:
+      custom_info:
+        $ref: '#/definitions/keyboardcustomserializer.KeyboardCustomInfo'
+      email:
+        type: string
+      order_no:
+        type: string
+      platform:
+        enum:
+        - H5
+        - shopify
+        type: string
+    required:
+    - custom_info
+    - order_no
+    - platform
+    type: object
+  keyboardcustomserializer.KeyboardCustom:
+    properties:
+      create_time:
+        type: string
+      custom_info:
+        additionalProperties:
+          type: string
+        type: object
+      email:
+        type: string
+      id:
+        type: integer
+      nickname:
+        type: string
+      order_no:
+        type: string
+      platform:
+        $ref: '#/definitions/keyboardcustom.Platform'
+      update_time:
+        type: string
+      user_id:
+        type: integer
+    type: object
+  keyboardcustomserializer.KeyboardCustomInfo:
+    properties:
+      left:
+        type: string
+      right:
+        type: string
+      top:
+        type: string
+    type: object
+  nocaptcha.BodyAFSCaptcha:
+    properties:
+      scene:
+        type: string
+      session_id:
+        type: string
+      sign:
+        type: string
+      token:
+        type: string
+    required:
+    - scene
+    - session_id
+    - sign
+    - token
+    type: object
+  notification.BodyNotification:
+    properties:
+      content:
+        type: string
+      is_active:
+        description: 设置为false时，c端无法看到
+        type: boolean
+      publish_at:
+        description: 发布时间不设置时，默认为创建时时间
+        type: string
+      title:
+        type: string
+      type:
+        allOf:
+        - $ref: '#/definitions/notification.Type'
+        description: Type private 只有 user_id 或者 user_ids 的对应用户才能看到，public则是全部人都可以看到
+        enum:
+        - private
+        - ' public'
+      user_id:
+        type: integer
+      user_ids:
+        items:
+          type: integer
+        type: array
+    required:
+    - type
+    type: object
+  notification.Notification:
+    properties:
+      content:
+        type: string
+      create_time:
+        type: string
+      id:
+        type: integer
+      is_active:
+        type: boolean
+      is_read:
+        type: boolean
+      publish_at:
+        type: string
+      title:
+        type: string
+      type:
+        allOf:
+        - $ref: '#/definitions/notification.Type'
+        enum:
+        - private
+        - ' public'
+      update_time:
+        type: string
+      user_id:
+        type: integer
+      user_ids:
+        items:
+          type: integer
+        type: array
+    required:
+    - type
+    type: object
+  notification.Type:
+    enum:
+    - public
+    - private
+    type: string
+    x-enum-varnames:
+    - TypePublic
+    - TypePrivate
+  notificationlog.BodyUpsert:
+    properties:
+      is_all:
+        type: boolean
+      notification_ids:
+        items:
+          type: integer
+        type: array
+    type: object
+  order.AggregateOrder:
+    properties:
+      express_info:
+        $ref: '#/definitions/express.BodyExpressCountInfo'
+      invoice_info:
+        $ref: '#/definitions/invoice.Invoice'
+      order:
+        $ref: '#/definitions/order.Order'
+      payment_info:
+        $ref: '#/definitions/payment.Payment'
+      refund_orders:
+        items:
+          $ref: '#/definitions/refundorder.RefundOrder'
+        type: array
+      shipping_info:
+        $ref: '#/definitions/shipping.Shipping'
+      sub_orders:
+        items:
+          $ref: '#/definitions/suborder.SubOrder'
+        type: array
+    type: object
+  order.BodyAggregateOrderUpdate:
+    properties:
+      comment:
+        type: string
+    type: object
+  order.BodyAggregateOrderUpdateAmount:
+    properties:
+      shipping:
+        description: Amount   *float64 `json:"amount"`
+        type: number
+    type: object
+  order.BodyAggregateOrderUpdateStatus:
+    properties:
+      refund_info:
+        items:
+          additionalProperties: true
+          type: object
+        type: array
+      status:
+        allOf:
+        - $ref: '#/definitions/order.Status'
+        description: |-
+          enums: closed,refunding,refunded
+          c: unpaid -> closed; paid -> refunding;
+          a(admin):  unpaid -> closed; paid -> refunding; refunding -> refunded; refunding -> paid; refunding -> refunding;
+        enum:
+        - closed
+        - refunding
+        - refunded
+        - paid
+    required:
+    - status
+    type: object
+  order.BodyCreateWithCaptcha:
+    properties:
+      address_id:
+        type: integer
+      captcha:
+        allOf:
+        - $ref: '#/definitions/nocaptcha.BodyAFSCaptcha'
+        description: ali captcha
+      from_cart:
+        type: boolean
+      products:
+        items:
+          $ref: '#/definitions/product.BodyCalcProduct'
+        type: array
+      user_coupon_id:
+        type: integer
+      user_coupon_id_am_code:
+        type: integer
+    required:
+    - address_id
+    type: object
+  order.Order:
+    properties:
+      amount:
+        type: number
+      comment:
+        type: string
+      create_time:
+        type: string
+      discount_amount:
+        type: number
+      has_clear_purchase_limit:
+        type: boolean
+      id:
+        type: integer
+      order_no:
+        type: string
+      payment_method:
+        $ref: '#/definitions/order.PaymentMethod'
+      refund_info:
+        items:
+          additionalProperties: true
+          type: object
+        type: array
+      refund_time:
+        type: string
+      shipping:
+        type: number
+      status:
+        $ref: '#/definitions/order.Status'
+      transaction_id:
+        type: string
+      user_coupon_id:
+        type: integer
+      user_id:
+        type: integer
+    type: object
+  order.PaymentMethod:
+    enum:
+    - cash
+    - wechatpay
+    - alipay
+    type: string
+    x-enum-varnames:
+    - PaymentMethodCash
+    - PaymentMethodWechatpay
+    - PaymentMethodAlipay
+  order.QueryAggregateOrderList:
+    properties:
+      ordering:
+        enum:
+        - id
+        - -id
+        - create_time
+        - -create_time
+        type: string
+      page_number:
+        type: integer
+      page_size:
+        type: integer
+      status:
+        description: 'enums: unpaid paid canceling closed'
+        enum:
+        - unpaid
+        - paid
+        - refunding
+        - refund
+        - closed
+        type: string
+      sub_order_status:
+        description: 'enums: unpaid paid shipping confirmed closed refund'
+        enum:
+        - unpaid
+        - paid
+        - shipping
+        - confirmed
+        - closed
+        - refunding
+        - refunded
+        - after_sale_refunding
+        - after_sale_refunded
+        type: string
+    type: object
+  order.Status:
+    enum:
+    - unpaid
+    - unpaid
+    - paid
+    - refunding
+    - refunded
+    - closed
+    type: string
+    x-enum-varnames:
+    - DefaultStatus
+    - StatusUnpaid
+    - StatusPaid
+    - StatusRefunding
+    - StatusRefunded
+    - StatusClosed
+  pagination.Resp:
+    properties:
+      count:
+        type: integer
+      page_number:
+        type: integer
+      page_size:
+        type: integer
+      results:
+        items:
+          type: object
+        type: array
+    type: object
+  payment.BodyPaymentCreate:
+    properties:
+      open_id:
+        type: string
+      order_no:
+        type: string
+      trade_type:
+        enum:
+        - JSAPI
+        - MWEB
+        - AliPayPreCreate
+        - AliPayWap
+        type: string
+    required:
+    - order_no
+    - trade_type
+    type: object
+  payment.Method:
+    enum:
+    - cash
+    - wechatpay
+    - alipay
+    type: string
+    x-enum-varnames:
+    - MethodCash
+    - MethodWechatpay
+    - MethodAlipay
+  payment.Payment:
+    properties:
+      amount:
+        type: number
+      create_time:
+        type: string
+      id:
+        type: integer
+      method:
+        $ref: '#/definitions/payment.Method'
+      order_id:
+        type: integer
+      order_no:
+        type: string
+      out_trade_no:
+        type: string
+      status:
+        $ref: '#/definitions/payment.Status'
+      transaction_id:
+        type: string
+      type:
+        $ref: '#/definitions/payment.Type'
+      update_time:
+        type: string
+    type: object
+  payment.RespPaymentCreate:
+    properties:
+      content:
+        type: object
+    type: object
+  payment.Status:
+    enum:
+    - unpaid
+    - unpaid
+    - finished
+    type: string
+    x-enum-varnames:
+    - DefaultStatus
+    - StatusUnpaid
+    - StatusFinished
+  payment.Type:
+    enum:
+    - order
+    - refund
+    type: string
+    x-enum-varnames:
+    - TypeOrder
+    - TypeRefund
+  pkg.RespListWithPagination:
+    properties:
+      count:
+        type: integer
+      page_number:
+        type: integer
+      page_size:
+        type: integer
+      results:
+        items:
+          type: object
+        type: array
+    type: object
+  producer.Producer:
+    properties:
+      create_time:
+        type: string
+      id:
+        type: integer
+      name_cn:
+        type: string
+      name_en:
+        type: string
+      update_time:
+        type: string
+    type: object
+  product.AggregateProduct:
+    properties:
+      attrs:
+        items:
+          $ref: '#/definitions/attr.Attr'
+        type: array
+      comment_info:
+        $ref: '#/definitions/comment.CommentInfo'
+      follow_count:
+        description: 其他信息
+        type: integer
+      following:
+        type: boolean
+      product:
+        $ref: '#/definitions/product.Product'
+      sell_percent:
+        type: number
+      skus:
+        items:
+          $ref: '#/definitions/sku.SKU'
+        type: array
+      stock_policies:
+        items:
+          $ref: '#/definitions/stockpolicy.StockPolicy'
+        type: array
+    type: object
+  product.BodyCalcProduct:
+    properties:
+      number:
+        type: integer
+      product_id:
+        type: integer
+      sku_id:
+        type: integer
+    required:
+    - number
+    - product_id
+    - sku_id
+    type: object
+  product.Product:
+    properties:
+      create_time:
+        type: string
+      deliver_at:
+        type: string
+      description:
+        type: string
+      detail_medias:
+        items:
+          additionalProperties: true
+          type: object
+        type: array
+      hidden_id:
+        type: string
+      id:
+        type: integer
+      is_hidden:
+        type: boolean
+      is_top:
+        type: boolean
+      is_use_whitelist:
+        type: boolean
+      main_medias:
+        items:
+          additionalProperties: true
+          type: object
+        type: array
+      name:
+        type: string
+      priority:
+        type: integer
+      producer_id:
+        type: integer
+      producer_info:
+        $ref: '#/definitions/producer.Producer'
+      qr_code_images:
+        items:
+          additionalProperties: true
+          type: object
+        type: array
+      sale_at:
+        type: string
+      slogan:
+        type: string
+      stage:
+        $ref: '#/definitions/product.Stage'
+      status:
+        $ref: '#/definitions/product.Status'
+      update_time:
+        type: string
+      url:
+        type: string
+    required:
+    - name
+    type: object
+  product.Stage:
+    enum:
+    - conceptual
+    - available
+    - pre_sell
+    - crowdfunding
+    type: string
+    x-enum-varnames:
+    - StageConceptual
+    - StageAvailable
+    - StagePreSell
+    - StageCrowdfunding
+  product.Status:
+    enum:
+    - pending
+    - pending
+    - launch
+    type: string
+    x-enum-varnames:
+    - DefaultStatus
+    - StatusPending
+    - StatusLaunch
+  productusercollectionserializer.ProductUserCollection:
+    properties:
+      create_time:
+        type: string
+      email:
+        type: string
+      id:
+        type: integer
+      nickname:
+        type: string
+      phone:
+        type: string
+      product_code:
+        type: string
+      product_name:
+        type: string
+      update_time:
+        type: string
+      user_id:
+        type: integer
+    type: object
+  productusercollectionserializer.ProductUserCollectionBody:
+    properties:
+      email:
+        type: string
+      nickname:
+        maxLength: 20
+        type: string
+      phone:
+        maxLength: 16
+        type: string
+      product_code:
+        maxLength: 64
+        type: string
+    required:
+    - nickname
+    - product_code
+    type: object
+  productusercollectionserializer.ProductUserCollectionStat:
+    properties:
+      count:
+        type: integer
+      has_collection:
+        type: boolean
+    type: object
+  profile.BodyProfile:
+    properties:
+      phone:
+        type: string
+    type: object
+  profile.Profile:
+    properties:
+      create_time:
+        type: string
+      id:
+        type: integer
+      phone:
+        type: string
+      update_time:
+        type: string
+    type: object
+  refund.BodyRefund:
+    properties:
+      object_id:
+        type: string
+      type:
+        description: 获取要处理的订单
+        enum:
+        - order
+        type: string
+    required:
+    - type
+    type: object
+  refundorder.BodyRefundOrderCreateWithA:
+    properties:
+      amount:
+        type: number
+      number:
+        type: integer
+      order_no:
+        type: string
+      remark:
+        type: string
+      status:
+        allOf:
+        - $ref: '#/definitions/refundorder.Status'
+        enum:
+        - processing
+        - pending
+      sub_order_no:
+        type: string
+      type:
+        allOf:
+        - $ref: '#/definitions/refundorder.Type'
+        enum:
+        - sub_order
+        - custom
+    required:
+    - amount
+    - number
+    - type
+    type: object
+  refundorder.BodyRefundOrderStatusUpdate:
+    properties:
+      status:
+        description: |-
+          Status 状态：pending processing accepted rejected
+          * pending - processing rejected
+          * processing - reject accepted
+        enum:
+        - processing
+        - accepted
+        - rejected
+        type: string
+    type: object
+  refundorder.RefundOrder:
+    properties:
+      amount:
+        type: number
+      create_time:
+        type: string
+      id:
+        type: integer
+      number:
+        type: integer
+      order_id:
+        type: integer
+      refund_order_no:
+        type: string
+      remark:
+        type: string
+      status:
+        $ref: '#/definitions/refundorder.Status'
+      sub_order:
+        $ref: '#/definitions/suborder.SubOrder'
+      sub_order_id:
+        type: integer
+      type:
+        $ref: '#/definitions/refundorder.Type'
+      update_time:
+        type: string
+    type: object
+  refundorder.Status:
+    enum:
+    - pending
+    - pending
+    - processing
+    - rejected
+    - accepted
+    type: string
+    x-enum-varnames:
+    - DefaultStatus
+    - StatusPending
+    - StatusProcessing
+    - StatusRejected
+    - StatusAccepted
+  refundorder.Type:
+    enum:
+    - sub_order
+    - custom
+    type: string
+    x-enum-varnames:
+    - TypeSubOrder
+    - TypeCustom
+  response.RespCommon:
+    properties:
+      message:
+        type: string
+    type: object
+  sale.BodyProductSaleList:
+    properties:
+      sku_ids:
+        items:
+          type: integer
+        type: array
+    required:
+    - sku_ids
+    type: object
+  sale.RespBookedInfo:
+    properties:
+      booked:
+        type: integer
+      stock:
+        type: integer
+    type: object
+  sale.RespProductSale:
+    properties:
+      booked_info:
+        $ref: '#/definitions/sale.RespBookedInfo'
+      sku_id:
+        type: integer
+      sub_order_info:
+        $ref: '#/definitions/sale.RespSubOrderInfo'
+    type: object
+  sale.RespSubOrderInfo:
+    properties:
+      sum:
+        type: integer
+    type: object
+  serializer.RespCommon:
+    properties:
+      message:
+        type: string
+    type: object
+  settings.RefundSettings:
+    properties:
+      is_open:
+        type: boolean
+    required:
+    - is_open
+    type: object
+  settings.Settings:
+    properties:
+      refund:
+        $ref: '#/definitions/settings.RefundSettings'
+      shipping:
+        $ref: '#/definitions/settings.ShippingSettings'
+    type: object
+  settings.ShippingSettings:
+    properties:
+      amount:
+        type: number
+      is_open:
+        type: boolean
+      threshold:
+        type: number
+    required:
+    - amount
+    - is_open
+    - threshold
+    type: object
+  shipping.BodyUpdateStatus:
+    properties:
+      status:
+        allOf:
+        - $ref: '#/definitions/shipping.Status'
+        description: 'enums: refunding refunded paid'
+        enum:
+        - refunding
+        - refunded
+        - paid
+    required:
+    - status
+    type: object
+  shipping.Shipping:
+    properties:
+      amount:
+        type: number
+      create_time:
+        type: string
+      description:
+        type: string
+      id:
+        type: integer
+      order_id:
+        type: integer
+      refund_time:
+        type: string
+      status:
+        $ref: '#/definitions/shipping.Status'
+      update_time:
+        type: string
+    type: object
+  shipping.Status:
+    enum:
+    - unpaid
+    - unpaid
+    - paid
+    - refunding
+    - refunded
+    - closed
+    type: string
+    x-enum-varnames:
+    - DefaultStatus
+    - StatusUnpaid
+    - StatusPaid
+    - StatusRefunding
+    - StatusRefunded
+    - StatusClosed
+  sku.SKU:
+    properties:
+      amount:
+        minimum: 0.01
+        type: number
+      extra_amount:
+        type: number
+      goods_code:
+        type: string
+      goods_info:
+        allOf:
+        - $ref: '#/definitions/goods.Goods'
+        description: GoodsID   *int    `json:"goods_id"`
+      goods_name:
+        type: string
+      has_stock:
+        description: HasStock 用于C端表示是否能够购买
+        type: boolean
+      id:
+        type: integer
+      is_active:
+        type: boolean
+      limit:
+        type: integer
+      medias:
+        items:
+          additionalProperties: true
+          type: object
+        type: array
+      name:
+        type: string
+      options:
+        items:
+          additionalProperties: true
+          type: object
+        type: array
+      priority:
+        type: integer
+      stock:
+        type: integer
+    type: object
+  stockpolicy.StockPolicy:
+    properties:
+      auto:
+        type: boolean
+      id:
+        type: integer
+      max_stock:
+        type: integer
+      sku_ids:
+        items:
+          type: integer
+        type: array
+      type:
+        allOf:
+        - $ref: '#/definitions/stockpolicy.Type'
+        enum:
+        - user
+        - global
+    required:
+    - max_stock
+    type: object
+  stockpolicy.Type:
+    enum:
+    - user
+    - global
+    type: string
+    x-enum-varnames:
+    - TypeUser
+    - TypeGlobal
+  suborder.BodyBulkUpdateProductSnapShot:
+    properties:
+      produce_id:
+        type: integer
+      sku_id:
+        type: integer
+    type: object
+  suborder.BodySubOrderUpdateAddress:
+    properties:
+      address_info:
+        additionalProperties: true
+        type: object
+    required:
+    - address_info
+    type: object
+  suborder.BodySubOrderUpdateStatus:
+    properties:
+      status:
+        allOf:
+        - $ref: '#/definitions/suborder.Status'
+        description: 'enums: confirmed refunding paid refunded'
+        enum:
+        - confirmed
+        - refunding
+        - refunded
+        - paid
+    required:
+    - status
+    type: object
+  suborder.BodyUpdate:
+    properties:
+      sn_codes:
+        items:
+          type: string
+        type: array
+    type: object
+  suborder.BodyUpdateBulk:
+    properties:
+      sn_codes:
+        items:
+          type: string
+        type: array
+      sub_order_no:
+        type: string
+    required:
+    - sub_order_no
+    type: object
+  suborder.BodyUpdateProductSnapShot:
+    properties:
+      goods_id:
+        type: integer
+      producer_id:
+        type: integer
+    type: object
+  suborder.Status:
+    enum:
+    - unpaid
+    - unpaid
+    - paid
+    - shipping
+    - confirmed
+    - closed
+    - refunded
+    - refunding
+    type: string
+    x-enum-varnames:
+    - DefaultStatus
+    - StatusUnpaid
+    - StatusPaid
+    - StatusShipping
+    - StatusConfirmed
+    - StatusClosed
+    - StatusRefunded
+    - StatusRefunding
+  suborder.SubOrder:
+    properties:
+      address_info:
+        additionalProperties: true
+        type: object
+      amount:
+        type: number
+      create_time:
+        type: string
+      discount_amount:
+        type: number
+      express:
+        $ref: '#/definitions/express.Express'
+      extra_amount:
+        type: number
+      has_express:
+        type: boolean
+      id:
+        type: integer
+      number:
+        type: integer
+      order_id:
+        type: integer
+      phone:
+        type: string
+      product_id:
+        type: integer
+      product_snapshot:
+        additionalProperties: true
+        type: object
+      refund_time:
+        type: string
+      sku_id:
+        type: integer
+      sn_codes:
+        items:
+          type: string
+        type: array
+      status:
+        $ref: '#/definitions/suborder.Status'
+      sub_order_no:
+        type: string
+      update_time:
+        type: string
+    type: object
+  upload.BodyOSSSign:
+    properties:
+      file_prefix:
+        enum:
+        - product
+        - comment
+        type: string
+      file_type:
+        type: string
+    required:
+    - file_prefix
+    - file_type
+    type: object
+  user.SimplifiedUser:
+    properties:
+      avatar:
+        type: string
+      id:
+        type: integer
+      nickname:
+        type: string
+    type: object
+  usercoupon.BodyMatch:
+    properties:
+      products:
+        items:
+          $ref: '#/definitions/product.BodyCalcProduct'
+        type: array
+    type: object
+  usercoupon.BodyUpdateOne:
+    properties:
+      amount_threshold:
+        type: integer
+      category:
+        $ref: '#/definitions/usercoupon.Category'
+      claim_at:
+        type: string
+      clear_use_at:
+        type: boolean
+      coupon_activity_id:
+        type: integer
+      coupon_code:
+        type: string
+      coupon_id:
+        type: integer
+      discount:
+        type: integer
+      end_at:
+        type: string
+      max_amount_limit:
+        type: integer
+      order_id:
+        type: integer
+      save_amount:
+        type: integer
+      start_at:
+        type: string
+      status:
+        allOf:
+        - $ref: '#/definitions/usercoupon.Status'
+        enum:
+        - unused
+        - used
+        - locked
+        - canceled
+      type:
+        $ref: '#/definitions/usercoupon.Type'
+      use_at:
+        type: string
+      user_id:
+        type: integer
+      validity_goods_type:
+        $ref: '#/definitions/usercoupon.ValidityGoodsType'
+      validity_goods_type_ids:
+        items:
+          type: integer
+        type: array
+    type: object
+  usercoupon.Category:
+    enum:
+    - special_offer
+    - early_bird
+    type: string
+    x-enum-varnames:
+    - CategorySpecialOffer
+    - CategoryEarlyBird
+  usercoupon.RespMatch:
+    properties:
+      error_msg:
+        type: string
+      is_match:
+        type: boolean
+      user_coupon:
+        $ref: '#/definitions/usercoupon.UserCoupon'
+    type: object
+  usercoupon.Status:
+    enum:
+    - unused
+    - used
+    - locked
+    - canceled
+    type: string
+    x-enum-varnames:
+    - StatusUnused
+    - StatusUsed
+    - StatusLocked
+    - StatusCanceled
+  usercoupon.Type:
+    enum:
+    - save
+    - discount
+    - early_bird
+    type: string
+    x-enum-varnames:
+    - TypeSave
+    - TypeDiscount
+    - TypeEarlyBird
+  usercoupon.UserCoupon:
+    properties:
+      amount_threshold:
+        type: integer
+      category:
+        $ref: '#/definitions/usercoupon.Category'
+      claim_at:
+        type: string
+      coupon_activity_id:
+        type: integer
+      coupon_code:
+        type: string
+      coupon_id:
+        type: integer
+      create_time:
+        type: string
+      discount:
+        type: integer
+      end_at:
+        type: string
+      id:
+        type: integer
+      max_amount_limit:
+        type: integer
+      order_id:
+        type: integer
+      save_amount:
+        type: integer
+      start_at:
+        type: string
+      status:
+        $ref: '#/definitions/usercoupon.Status'
+      type:
+        $ref: '#/definitions/usercoupon.Type'
+      update_time:
+        type: string
+      use_at:
+        type: string
+      user_id:
+        type: integer
+      validity_goods_type:
+        $ref: '#/definitions/usercoupon.ValidityGoodsType'
+      validity_goods_type_ids:
+        items:
+          type: integer
+        type: array
+    type: object
+  usercoupon.ValidityGoodsType:
+    enum:
+    - all
+    - product
+    type: string
+    x-enum-varnames:
+    - ValidityGoodsTypeAll
+    - ValidityGoodsTypeProduct
+  warehouseorder.BodyCreate:
+    properties:
+      address_city:
+        type: string
+      address_consignee:
+        type: string
+      address_country:
+        type: string
+      address_detail:
+        type: string
+      address_district:
+        type: string
+      address_phone:
+        type: string
+      address_province:
+        type: string
+      aggregate_amount:
+        type: number
+      aggregate_refund_amount:
+        type: number
+      aggregate_refunding_amount:
+        type: number
+      amount:
+        type: number
+      comment:
+        type: string
+      currency:
+        type: string
+      email:
+        type: string
+      express_no:
+        type: string
+      express_supplier:
+        type: string
+      express_time:
+        type: string
+      goods_code:
+        type: string
+      goods_name:
+        type: string
+      number:
+        type: integer
+      order_no:
+        type: string
+      payment_method:
+        type: string
+      payment_time:
+        type: string
+      platform_id:
+        type: integer
+      producer_id:
+        type: integer
+      purchase_time:
+        type: string
+      refund_time:
+        type: string
+      refunded_amount:
+        type: number
+      refunding_amount:
+        type: number
+      security_code:
+        type: string
+      sku_name:
+        type: string
+      sn_code:
+        type: string
+      status:
+        type: string
+      sub_order_no:
+        type: string
+      total_amount:
+        type: number
+      transaction_id:
+        type: string
+      user_id:
+        type: integer
+    type: object
+  warehouseorder.BodyRequiredUpdate:
+    properties:
+      address_city:
+        type: string
+      address_consignee:
+        type: string
+      address_country:
+        type: string
+      address_detail:
+        type: string
+      address_district:
+        type: string
+      address_phone:
+        type: string
+      address_province:
+        type: string
+      aggregate_amount:
+        type: number
+      aggregate_refund_amount:
+        type: number
+      aggregate_refunding_amount:
+        type: number
+      amount:
+        type: number
+      comment:
+        type: string
+      currency:
+        type: string
+      email:
+        type: string
+      express_no:
+        type: string
+      express_supplier:
+        type: string
+      express_time:
+        type: string
+      goods_code:
+        type: string
+      goods_name:
+        type: string
+      number:
+        type: integer
+      order_no:
+        type: string
+      payment_method:
+        type: string
+      payment_time:
+        type: string
+      platform_id:
+        type: integer
+      producer_id:
+        type: integer
+      purchase_time:
+        type: string
+      refund_time:
+        type: string
+      refunded_amount:
+        type: number
+      refunding_amount:
+        type: number
+      security_code:
+        type: string
+      sku_name:
+        type: string
+      sn_code:
+        type: string
+      status:
+        type: string
+      sub_order_no:
+        type: string
+      total_amount:
+        type: number
+      transaction_id:
+        type: string
+      user_id:
+        type: integer
+    type: object
+  warehouseorder.WarehouseOrder:
+    properties:
+      address_city:
+        type: string
+      address_consignee:
+        type: string
+      address_country:
+        type: string
+      address_detail:
+        type: string
+      address_district:
+        type: string
+      address_phone:
+        type: string
+      address_province:
+        type: string
+      aggregate_amount:
+        type: number
+      aggregate_refund_amount:
+        type: number
+      aggregate_refunding_amount:
+        type: number
+      amount:
+        type: number
+      comment:
+        type: string
+      create_time:
+        type: string
+      currency:
+        type: string
+      email:
+        type: string
+      express_no:
+        type: string
+      express_supplier:
+        type: string
+      express_time:
+        type: string
+      goods_code:
+        type: string
+      goods_name:
+        type: string
+      id:
+        type: integer
+      number:
+        type: integer
+      order_no:
+        type: string
+      payment_method:
+        type: string
+      payment_time:
+        type: string
+      platform_id:
+        type: integer
+      platform_info:
+        $ref: '#/definitions/warehouseplatform.WarehousePlatform'
+      producer_id:
+        type: integer
+      producer_info:
+        $ref: '#/definitions/warehouseproducer.WarehouseProducer'
+      purchase_time:
+        type: string
+      refund_time:
+        type: string
+      refunded_amount:
+        type: number
+      refunding_amount:
+        type: number
+      security_code:
+        type: string
+      sku_name:
+        type: string
+      sn_code:
+        type: string
+      status:
+        type: string
+      sub_order_no:
+        type: string
+      total_amount:
+        type: number
+      transaction_id:
+        type: string
+      update_time:
+        type: string
+      user_id:
+        type: integer
+    type: object
+  warehouseplatform.BodyCreate:
+    properties:
+      name_cn:
+        type: string
+      name_en:
+        type: string
+    type: object
+  warehouseplatform.BodyUpdate:
+    properties:
+      name_cn:
+        type: string
+      name_en:
+        type: string
+    type: object
+  warehouseplatform.WarehousePlatform:
+    properties:
+      create_time:
+        type: string
+      id:
+        type: integer
+      name_cn:
+        type: string
+      name_en:
+        type: string
+      update_time:
+        type: string
+    type: object
+  warehouseproducer.WarehouseProducer:
+    properties:
+      create_time:
+        type: string
+      id:
+        type: integer
+      name_cn:
+        type: string
+      name_en:
+        type: string
+      update_time:
+        type: string
+    type: object
+  whitelist.ProductWhiteList:
+    properties:
+      ids:
+        items:
+          type: integer
+        type: array
+    required:
+    - ids
+    type: object
+info:
+  contact: {}
+  description: |-
+    angrymiao mall管理后端接口.
+    <br />
+    auth 格式: Bearer TOKEN
+  title: AngryMiao Mall Admin API
+  version: 0.0.1
+paths:
+  /address:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: 'Ordering 使用 "-"来表示倒序排序，如 -id，多个字段用逗号","隔开, enums: id -id is_default
+          -is_default'
+        enum:
+        - id
+        - -id
+        - is_default
+        - -is_default
+        in: query
+        name: ordering
+        type: string
+      - in: query
+        name: page_number
+        type: integer
+      - in: query
+        name: page_size
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/pkg.RespListWithPagination'
+            - properties:
+                results:
+                  items:
+                    $ref: '#/definitions/address.Address'
+                  type: array
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 收货地址列表
+      tags:
+      - address
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/address.BodyAddress'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/address.Address'
+      security:
+      - ApiKeyAuth: []
+      summary: 创建收货地址
+      tags:
+      - address
+  /address/{id}:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+      security:
+      - ApiKeyAuth: []
+      summary: 删除收货地址
+      tags:
+      - address
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/address.Address'
+      security:
+      - ApiKeyAuth: []
+      summary: 收货地址详情
+      tags:
+      - address
+    patch:
+      consumes:
+      - application/json
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/address.BodyAddress'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/address.Address'
+      security:
+      - ApiKeyAuth: []
+      summary: 更新收货地址
+      tags:
+      - address
+  /cart:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: data
+        in: body
+        name: data
+        required: true
+        schema:
+          items:
+            $ref: '#/definitions/cart.BodyCartItem'
+          type: array
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/serializer.RespCommon'
+      security:
+      - ApiKeyAuth: []
+      summary: 购物车删除商品
+      tags:
+      - cart
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: Order 使用 "-"来表示倒序排序，如 -id，多个字段用逗号","隔开, created -created
+        enum:
+        - created
+        - -created
+        in: query
+        name: ordering
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/pkg.RespListWithPagination'
+            - properties:
+                results:
+                  items:
+                    $ref: '#/definitions/cart.Item'
+                  type: array
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 购物车列表
+      tags:
+      - cart
+    patch:
+      consumes:
+      - application/json
+      parameters:
+      - description: data
+        in: body
+        name: data
+        required: true
+        schema:
+          items:
+            $ref: '#/definitions/cart.BodyCartItem'
+          type: array
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/serializer.RespCommon'
+      security:
+      - ApiKeyAuth: []
+      summary: 购物车更新商品
+      tags:
+      - cart
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/cart.BodyCartItem'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/serializer.RespCommon'
+      security:
+      - ApiKeyAuth: []
+      summary: 购物车增加商品
+      tags:
+      - cart
+  /cart/calc:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/cart.BodyCalc'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/pkg.RespListWithPagination'
+            - properties:
+                results:
+                  items:
+                    $ref: '#/definitions/cart.RespCalcProduct'
+                  type: array
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 购物车下单计算
+      tags:
+      - cart
+  /cart/check:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: data
+        in: body
+        name: data
+        required: true
+        schema:
+          items:
+            $ref: '#/definitions/cart.BodyCartItem'
+          type: array
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/cart.RespCartCheckInfo'
+            type: array
+      security:
+      - ApiKeyAuth: []
+      summary: 购物车下单检测
+      tags:
+      - cart
+  /cart/count:
+    post:
+      consumes:
+      - application/json
+      description: 数据过期时间为120s，可以强制刷新，实时更新
+      parameters:
+      - description: data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/cart.BodyCartSkuIDList'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/pkg.RespListWithPagination'
+            - properties:
+                results:
+                  items:
+                    $ref: '#/definitions/cart.RespCartSkuCount'
+                  type: array
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 购物车统计
+      tags:
+      - cart
+  /cart/simplified:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/pkg.RespListWithPagination'
+            - properties:
+                results:
+                  items:
+                    $ref: '#/definitions/cart.CacheItem'
+                  type: array
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 购物车简化列表
+      tags:
+      - cart
+  /comment:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: Order 使用 "-"来表示倒序排序，如 -id，多个字段用逗号","隔开，可选 id -id id -create_time
+          create_time
+        enum:
+        - id
+        - create_time
+        in: query
+        name: ordering
+        type: string
+      - in: query
+        name: page_number
+        type: integer
+      - in: query
+        name: page_size
+        type: integer
+      - in: query
+        name: product_id
+        type: integer
+      - in: query
+        name: sub_order_id
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/pkg.RespListWithPagination'
+            - properties:
+                results:
+                  items:
+                    $ref: '#/definitions/comment.Comment'
+                  type: array
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 产品评论列表
+      tags:
+      - comment
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/comment.BodyCommentCreate'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/comment.Comment'
+      security:
+      - ApiKeyAuth: []
+      summary: 创建产品评论
+      tags:
+      - comment
+  /comment/{id}:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/comment.Comment'
+      security:
+      - ApiKeyAuth: []
+      summary: 产品评论详情
+      tags:
+      - comment
+  /coupon:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - in: query
+        name: ids
+        required: true
+        type: string
+      - enum:
+        - id
+        - -id
+        in: query
+        name: ordering
+        type: string
+      - in: query
+        name: page_number
+        type: integer
+      - in: query
+        name: page_size
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/pkg.RespListWithPagination'
+            - properties:
+                results:
+                  items:
+                    $ref: '#/definitions/coupon.AggregateCoupon'
+                  type: array
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 获取优惠券列表
+      tags:
+      - coupon
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/coupon.BodyAggregateCouponCreate'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/coupon.AggregateCoupon'
+      security:
+      - ApiKeyAuth: []
+      summary: 创建优惠券
+      tags:
+      - coupon
+  /coupon-activity:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/pkg.RespListWithPagination'
+            - properties:
+                results:
+                  items:
+                    $ref: '#/definitions/couponactivity.CouponActivity'
+                  type: array
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 获取优惠券活动列表
+      tags:
+      - coupon-activity
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/couponactivity.BodyCreate'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/couponactivity.CouponActivity'
+      security:
+      - ApiKeyAuth: []
+      summary: 创建优惠券活动
+      tags:
+      - coupon-activity
+  /coupon-activity-code:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - in: query
+        name: activity_code
+        type: string
+      - in: query
+        name: coupon_activity_id
+        type: integer
+      - in: query
+        name: coupon_id
+        type: integer
+      - in: query
+        name: id
+        type: integer
+      - enum:
+        - id
+        - -id
+        in: query
+        name: ordering
+        type: string
+      - in: query
+        name: page_number
+        type: integer
+      - in: query
+        name: page_size
+        type: integer
+      - in: query
+        name: user_id
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/pkg.RespListWithPagination'
+            - properties:
+                results:
+                  items:
+                    $ref: '#/definitions/couponactivitycode.CouponActivityCode'
+                  type: array
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 获取优惠券码列表
+      tags:
+      - coupon-activity-code
+  /coupon-activity-code/bind:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/couponactivitycode.BodyBind'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.RespCommon'
+      security:
+      - ApiKeyAuth: []
+      summary: 兑换优惠券码
+      tags:
+      - coupon-activity-code
+  /coupon-activity-code/bulk-create:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/couponactivitycode.BodyBulkCreate'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/couponactivitycode.RespBulkCreate'
+            - properties:
+                results:
+                  items:
+                    $ref: '#/definitions/couponactivitycode.CouponActivityCode'
+                  type: array
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 批量创建优惠券码
+      tags:
+      - coupon-activity-code
+  /coupon-activity-code/x/{id}:
+    patch:
+      consumes:
+      - application/json
+      description: 支持将未使用的优惠券进行销毁
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/couponactivitycode.BodyUpdate'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/couponactivitycode.CouponActivityCode'
+      security:
+      - ApiKeyAuth: []
+      summary: 更新优惠券码
+      tags:
+      - coupon-activity-code
+  /coupon-activity/claim:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/couponactivity.BodyClaim'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/usercoupon.UserCoupon'
+      security:
+      - ApiKeyAuth: []
+      summary: 领取优惠券
+      tags:
+      - coupon-activity
+  /coupon-activity/x/{custom_id}:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: custom_id
+        in: path
+        name: custom_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/couponactivity.CouponActivity'
+      security:
+      - ApiKeyAuth: []
+      summary: 优惠券活动详情
+      tags:
+      - coupon-activity
+  /coupon-activity/x/{custom_id}/info:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: custom_id
+        in: path
+        name: custom_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/couponactivity.RespCouponActivityInfo'
+      security:
+      - ApiKeyAuth: []
+      summary: 优惠券活动详情领取状况
+      tags:
+      - coupon-activity
+  /coupon-activity/x/{id}:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/couponactivity.CouponActivity'
+      security:
+      - ApiKeyAuth: []
+      summary: 优惠券活动详情
+      tags:
+      - coupon-activity
+    patch:
+      consumes:
+      - application/json
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/couponactivity.BodyUpdate'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/couponactivity.CouponActivity'
+      security:
+      - ApiKeyAuth: []
+      summary: 更新优惠券活动
+      tags:
+      - coupon-activity
+  /coupon-activity/x/{id}/claim-info:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/couponactivity.RespClaimInfo'
+      security:
+      - ApiKeyAuth: []
+      summary: 优惠券活动领取情况
+      tags:
+      - coupon-activity
+  /coupon-send:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - enum:
+        - id
+        - -id
+        in: query
+        name: ordering
+        type: string
+      - in: query
+        name: page_number
+        type: integer
+      - in: query
+        name: page_size
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/pkg.RespListWithPagination'
+            - properties:
+                results:
+                  items:
+                    $ref: '#/definitions/couponsend.CouponSend'
+                  type: array
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 获取 优惠券发送
+      tags:
+      - coupon-send
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/couponsend.BodyCreate'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/couponsend.CouponSend'
+      security:
+      - ApiKeyAuth: []
+      summary: 创建 优惠券发送
+      tags:
+      - coupon-send
+  /coupon-send/x/{id}:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/couponsend.CouponSend'
+      security:
+      - ApiKeyAuth: []
+      summary: 优惠券发送 详情
+      tags:
+      - coupon-send
+  /coupon-send/x/{id}/send:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/couponsend.BodySend'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/pkg.RespListWithPagination'
+            - properties:
+                results:
+                  items:
+                    $ref: '#/definitions/couponsend.Result'
+                  type: array
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 优惠券发送
+      tags:
+      - coupon-send
+  /coupon-sync:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - in: query
+        name: couponID
+        type: integer
+      - enum:
+        - id
+        - -id
+        in: query
+        name: ordering
+        type: string
+      - in: query
+        name: page_number
+        type: integer
+      - in: query
+        name: page_size
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/pkg.RespListWithPagination'
+            - properties:
+                results:
+                  items:
+                    $ref: '#/definitions/couponsync.CouponSync'
+                  type: array
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 获取 优惠券发送
+      tags:
+      - coupon-sync
+  /coupon-sync/x/{id}/sync-user-coupon:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/couponsync.BodySyncUserCoupon'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.RespCommon'
+      security:
+      - ApiKeyAuth: []
+      summary: 同步优惠券信息到用户优惠券
+      tags:
+      - coupon-sync
+  /coupon/x/{id}:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/coupon.AggregateCoupon'
+      security:
+      - ApiKeyAuth: []
+      summary: 优惠券详情
+      tags:
+      - coupon
+    patch:
+      consumes:
+      - application/json
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/coupon.BodyAggregateCouponUpdate'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/coupon.AggregateCoupon'
+      security:
+      - ApiKeyAuth: []
+      summary: 更新优惠券
+      tags:
+      - coupon
+  /coupon/x/{id}/claim-info:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/coupon.RespClaimInfo'
+      security:
+      - ApiKeyAuth: []
+      summary: 优惠券领取情况
+      tags:
+      - coupon-activity
+  /coupon/x/{id}/coupon-number:
+    patch:
+      consumes:
+      - application/json
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/coupon.BodyIncreaseNumber'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/coupon.Coupon'
+      security:
+      - ApiKeyAuth: []
+      summary: 更新优惠券数量
+      tags:
+      - coupon
+  /discuss/discuss:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - in: query
+        name: object_id
+        type: integer
+      - description: Order 使用 "-"来表示倒序排序，如 -id，多个字段用逗号","隔开，可选 id -id id -create_time
+          create_time
+        enum:
+        - id
+        - create_time
+        in: query
+        name: ordering
+        type: string
+      - in: query
+        name: page_number
+        type: integer
+      - in: query
+        name: page_size
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/pkg.RespListWithPagination'
+            - properties:
+                results:
+                  items:
+                    $ref: '#/definitions/discuss.Discuss'
+                  type: array
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 讨论回复列表
+      tags:
+      - discuss
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/discuss.BodyDiscussCreate'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/discuss.Discuss'
+      security:
+      - ApiKeyAuth: []
+      summary: 创建讨论回复
+      tags:
+      - discuss
+  /discuss/product:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - in: query
+        name: object_id
+        type: integer
+      - description: Order 使用 "-"来表示倒序排序，如 -id，多个字段用逗号","隔开，可选 id -id id -create_time
+          create_time
+        enum:
+        - id
+        - create_time
+        in: query
+        name: ordering
+        type: string
+      - in: query
+        name: page_number
+        type: integer
+      - in: query
+        name: page_size
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/pkg.RespListWithPagination'
+            - properties:
+                results:
+                  items:
+                    $ref: '#/definitions/discuss.Discuss'
+                  type: array
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 产品讨论列表
+      tags:
+      - discuss
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/discuss.BodyDiscussCreate'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/discuss.Discuss'
+      security:
+      - ApiKeyAuth: []
+      summary: 创建产品讨论
+      tags:
+      - discuss
+  /draw:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - in: query
+        name: code
+        type: string
+      - in: query
+        name: page_number
+        type: integer
+      - in: query
+        name: page_size
+        type: integer
+      - in: query
+        name: redeem_end_time
+        type: string
+      - in: query
+        name: redeem_start_time
+        type: string
+      - in: query
+        name: user_id
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/drawserializer.Draw'
+            type: array
+      security:
+      - ApiKeyAuth: []
+      summary: 刮奖券列表数据
+      tags:
+      - draw
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/drawserializer.WinningRegBody'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/drawserializer.Draw'
+      security:
+      - ApiKeyAuth: []
+      summary: 登记中奖信息
+      tags:
+      - draw
+  /draw/x/{code}:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: draw code
+        in: path
+        name: code
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/drawserializer.Draw'
+      security:
+      - ApiKeyAuth: []
+      summary: 查询中奖信息
+      tags:
+      - draw
+  /exporter/order:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: 'format: 2021-02-10T01:22:10.351418+08:00'
+        in: query
+        name: create_time__end
+        type: string
+      - description: 'format: 2021-02-10T01:22:10.351418+08:00'
+        in: query
+        name: create_time__start
+        type: string
+      - in: query
+        name: express_no__contains
+        type: string
+      - in: query
+        name: order_id_gt
+        type: integer
+      - in: query
+        name: order_id_lt
+        type: integer
+      - in: query
+        name: order_no
+        type: string
+      - description: Order 使用 "-"来表示倒序排序，如 -id，多个字段用逗号","隔开, id -id created -created
+        enum:
+        - id
+        - -id
+        - create_time
+        - -create_time
+        in: query
+        name: ordering
+        type: string
+      - in: query
+        name: out_trade_no
+        type: string
+      - in: query
+        name: page_number
+        type: integer
+      - in: query
+        name: page_size
+        type: integer
+      - description: 'enums: wechat alipay'
+        enum:
+        - wechat
+        - alipay
+        in: query
+        name: pay_method
+        type: string
+      - in: query
+        name: phone__contains
+        type: string
+      - in: query
+        name: product_id
+        type: integer
+      - in: query
+        name: product_name__contains
+        type: string
+      - in: query
+        name: refund_time__end
+        type: string
+      - in: query
+        name: refund_time__start
+        type: string
+      - description: 'enums: unpaid paid shipping confirmed closed refund'
+        enum:
+        - unpaid
+        - paid
+        - closed
+        - refunding
+        - refunded
+        in: query
+        name: shipping_status
+        type: string
+      - in: query
+        name: sku_id
+        type: integer
+      - description: 'enums: unpaid paid canceling closed'
+        enum:
+        - unpaid
+        - paid
+        - refunding
+        - refund
+        - closed
+        in: query
+        name: status
+        type: string
+      - in: query
+        name: sub_order_no
+        type: string
+      - description: 'enums: unpaid paid shipping confirmed closed refund'
+        enum:
+        - unpaid
+        - paid
+        - shipping
+        - confirmed
+        - closed
+        - refunding
+        - refunded
+        - after_sale_refunding
+        - after_sale_refunded
+        in: query
+        name: sub_order_status
+        type: string
+      - in: query
+        name: user_id
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      security:
+      - ApiKeyAuth: []
+      summary: 订单列表导出
+      tags:
+      - exporter
+  /express:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/express.BodyCreate'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/express.Express'
+      security:
+      - ApiKeyAuth: []
+      summary: 创建快递信息
+      tags:
+      - express
+  /express-supplier:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/pkg.RespListWithPagination'
+            - properties:
+                results:
+                  items:
+                    $ref: '#/definitions/expresssupplier.Supplier'
+                  type: array
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 快递供应商 列表
+      tags:
+      - express-supplier
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/expresssupplier.Supplier'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/expresssupplier.Supplier'
+      security:
+      - ApiKeyAuth: []
+      summary: 设置快递供应商
+      tags:
+      - express-supplier
+  /express-supplier/x/{code}:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: code
+        in: path
+        name: code
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+      security:
+      - ApiKeyAuth: []
+      summary: 设置快递供应商
+      tags:
+      - express-supplier
+  /express/{id}:
+    patch:
+      consumes:
+      - application/json
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: body data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/express.BodyUpdate'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/express.Express'
+      security:
+      - ApiKeyAuth: []
+      summary: 更新快递信息
+      tags:
+      - express
+  /follow/product:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/follow.BodyProductFollowCreate'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/serializer.RespCommon'
+      security:
+      - ApiKeyAuth: []
+      summary: 关注产品
+      tags:
+      - follow
+  /global/producer:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: 'enums: id -id'
+        enum:
+        - id
+        - -id
+        in: query
+        name: ordering
+        type: string
+      - in: query
+        name: page_number
+        type: integer
+      - in: query
+        name: page_size
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/pagination.Resp'
+            - properties:
+                results:
+                  items:
+                    $ref: '#/definitions/globalproducer.GlobalProducer'
+                  type: array
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 生产商信息列表
+      tags:
+      - global-producer
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/globalproducer.BodyCreate'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/globalproducer.GlobalProducer'
+      security:
+      - ApiKeyAuth: []
+      summary: 创建生产商信息
+      tags:
+      - global-producer
+  /global/producer/{id}:
+    patch:
+      consumes:
+      - application/json
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/globalproducer.BodyUpdate'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/globalproducer.GlobalProducer'
+      security:
+      - ApiKeyAuth: []
+      summary: 更新生产商信息
+      tags:
+      - global-producer
+  /goods:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: 'enums: id -id'
+        enum:
+        - id
+        - -id
+        in: query
+        name: ordering
+        type: string
+      - in: query
+        name: page_number
+        type: integer
+      - in: query
+        name: page_size
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/pagination.Resp'
+            - properties:
+                results:
+                  items:
+                    $ref: '#/definitions/goods.Goods'
+                  type: array
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 商品信息列表
+      tags:
+      - goods
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/goods.BodyCreate'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/goods.Goods'
+      security:
+      - ApiKeyAuth: []
+      summary: 创建商品信息
+      tags:
+      - goods
+  /goods/{id}:
+    patch:
+      consumes:
+      - application/json
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/goods.BodyUpdate'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/goods.Goods'
+      security:
+      - ApiKeyAuth: []
+      summary: 更新商品信息
+      tags:
+      - goods
+  /hidden-product/{id}:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: Product id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/product.AggregateProduct'
+      security:
+      - ApiKeyAuth: []
+      summary: 获取隐藏产品详情
+      tags:
+      - product
+  /hupun/sync-order:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/hupun.BodySyncOrder'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/serializer.RespCommon'
+      security:
+      - ApiKeyAuth: []
+      summary: 订单同步到万里牛
+      tags:
+      - hupun
+  /hupun/sync-product:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/hupun.BodySyncProduct'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/serializer.RespCommon'
+      security:
+      - ApiKeyAuth: []
+      summary: 商品同步到万里牛
+      tags:
+      - hupun
+  /importer/bulk-update-order-status:
+    post:
+      consumes:
+      - multipart/form-data
+      parameters:
+      - description: file
+        in: formData
+        name: file
+        required: true
+        type: file
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/pkg.RespListWithPagination'
+      security:
+      - ApiKeyAuth: []
+      summary: 订单状态批量修改
+      tags:
+      - importer
+  /importer/bulk-update-order-status-template:
+    get:
+      consumes:
+      - multipart/form-data
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      security:
+      - ApiKeyAuth: []
+      summary: 订单状态批量修改模板
+      tags:
+      - importer
+  /importer/express:
+    post:
+      consumes:
+      - multipart/form-data
+      parameters:
+      - description: file
+        in: formData
+        name: file
+        required: true
+        type: file
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/pkg.RespListWithPagination'
+            - properties:
+                results:
+                  items:
+                    $ref: '#/definitions/express.Express'
+                  type: array
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 快递信息批量录入
+      tags:
+      - importer
+  /importer/express-template:
+    get:
+      consumes:
+      - multipart/form-data
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      security:
+      - ApiKeyAuth: []
+      summary: 快递信息导入模板
+      tags:
+      - importer
+  /invoice:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/invoice.BodyCreate'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/invoice.Invoice'
+      security:
+      - ApiKeyAuth: []
+      summary: 创建发票信息
+      tags:
+      - invoice
+  /invoice/{id}:
+    patch:
+      consumes:
+      - application/json
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: body data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/invoice.BodyUpdate'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/invoice.Invoice'
+      security:
+      - ApiKeyAuth: []
+      summary: 更新发票信息
+      tags:
+      - invoice
+  /keyboard-custom:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - in: query
+        name: order_no
+        type: string
+      - in: query
+        name: page_number
+        type: integer
+      - in: query
+        name: page_size
+        type: integer
+      - in: query
+        name: user_id
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/keyboardcustomserializer.KeyboardCustom'
+            type: array
+      security:
+      - ApiKeyAuth: []
+      summary: 键盘自定义数据列表
+      tags:
+      - keyboard-custom
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/keyboardcustomserializer.BodyKeyboardCustom'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/keyboardcustomserializer.KeyboardCustom'
+      security:
+      - ApiKeyAuth: []
+      summary: 定制键盘数据保存
+      tags:
+      - keyboard-custom
+  /keyboard-custom/x/{order_no}/{platform}:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: order no
+        in: path
+        name: order_no
+        required: true
+        type: string
+      - description: platform type (H5、shopify)
+        in: path
+        name: platform
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/keyboardcustomserializer.KeyboardCustom'
+      security:
+      - ApiKeyAuth: []
+      summary: 查询定制键盘数据
+      tags:
+      - keyboard-custom
+  /nft-exchange:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: Order 使用 "-"来表示倒序排序，如 -id，多个字段用逗号","隔开，可选 id -id id publish_at
+          -publish_at
+        enum:
+        - id
+        - -id
+        in: query
+        name: ordering
+        type: string
+      - in: query
+        name: page_number
+        type: integer
+      - in: query
+        name: page_size
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/pkg.RespListWithPagination'
+            - properties:
+                results:
+                  items:
+                    $ref: '#/definitions/exchange.NFTExchange'
+                  type: array
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 获取nft exchange 列表
+      tags:
+      - nft-exchange
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/exchange.BodyExchangeCreate'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/exchange.NFTExchange'
+      security:
+      - ApiKeyAuth: []
+      summary: 创建nft exchange
+      tags:
+      - nft-exchange
+  /nft-exchange/{id}:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+      security:
+      - ApiKeyAuth: []
+      summary: 删除nft exchange
+      tags:
+      - nft-exchange
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/exchange.NFTExchange'
+      security:
+      - ApiKeyAuth: []
+      summary: 获取nft exchange 详情
+      tags:
+      - nft-exchange
+    patch:
+      consumes:
+      - application/json
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/exchange.BodyExchangeUpdate'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/exchange.NFTExchange'
+      security:
+      - ApiKeyAuth: []
+      summary: 修改nft exchange
+      tags:
+      - nft-exchange
+  /nft-number/info:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - in: query
+        name: code
+        required: true
+        type: string
+      - in: query
+        name: orderNo
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/hatsu.RespGetInfo'
+      security:
+      - ApiKeyAuth: []
+      summary: 选号信息
+      tags:
+      - nft-number
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/hatsu.BodyCreateInfo'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/hatsu.Section'
+      security:
+      - ApiKeyAuth: []
+      summary: 选号
+      tags:
+      - nft-number
+  /nft-number/orders:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: 'Order 使用 "-"来表示倒序排序，如 -id，多个字段用逗号","隔开, enums: id -id'
+        enum:
+        - id
+        in: query
+        name: ordering
+        type: string
+      - in: query
+        name: page_number
+        type: integer
+      - in: query
+        name: page_size
+        type: integer
+      - in: query
+        name: sectionID
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/pkg.RespListWithPagination'
+            - properties:
+                results:
+                  items:
+                    $ref: '#/definitions/ent.NFTNumber'
+                  type: array
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 订单链接列表
+      tags:
+      - nft-number
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/hatsu.BodyAddOrders'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/hatsu.Section'
+      security:
+      - ApiKeyAuth: []
+      summary: 生成订单列表
+      tags:
+      - nft-number
+  /nft-number/section:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/pkg.RespListWithPagination'
+            - properties:
+                results:
+                  items:
+                    $ref: '#/definitions/hatsu.Section'
+                  type: array
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 号码区段列表
+      tags:
+      - nft-number
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/hatsu.Section'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/hatsu.Section'
+      security:
+      - ApiKeyAuth: []
+      summary: 设置号码区段
+      tags:
+      - nft-number
+  /notification:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - in: query
+        name: is_active
+        type: boolean
+      - in: query
+        name: is_read
+        type: boolean
+      - description: Order 使用 "-"来表示倒序排序，如 -id，多个字段用逗号","隔开，可选 id -id id publish_at
+          -publish_at
+        enum:
+        - id
+        - -id
+        - publish_at
+        - -publish_at
+        in: query
+        name: ordering
+        type: string
+      - in: query
+        name: page_number
+        type: integer
+      - in: query
+        name: page_size
+        type: integer
+      - description: UserIDsIsNull 暂用于筛选是否使用了用户列表来对应是后台编辑，还是系统自动发送
+        in: query
+        name: user_ids__is_null
+        type: boolean
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/pkg.RespListWithPagination'
+            - properties:
+                results:
+                  items:
+                    $ref: '#/definitions/notification.Notification'
+                  type: array
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 公告列表
+      tags:
+      - notification
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/notification.BodyNotification'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/notification.Notification'
+      security:
+      - ApiKeyAuth: []
+      summary: 发布公告
+      tags:
+      - notification
+  /notification-log/mark:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/notificationlog.BodyUpsert'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/serializer.RespCommon'
+      security:
+      - ApiKeyAuth: []
+      summary: 标记通知已阅
+      tags:
+      - notification-log
+  /notification/{id}:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+      security:
+      - ApiKeyAuth: []
+      summary: 删除公告
+      tags:
+      - notification
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/notification.Notification'
+      security:
+      - ApiKeyAuth: []
+      summary: 公告详情
+      tags:
+      - notification
+    patch:
+      consumes:
+      - application/json
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/notification.BodyNotification'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/notification.Notification'
+      security:
+      - ApiKeyAuth: []
+      summary: 更新公告
+      tags:
+      - notification
+  /order:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - enum:
+        - id
+        - -id
+        - create_time
+        - -create_time
+        in: query
+        name: ordering
+        type: string
+      - in: query
+        name: page_number
+        type: integer
+      - in: query
+        name: page_size
+        type: integer
+      - description: 'enums: unpaid paid canceling closed'
+        enum:
+        - unpaid
+        - paid
+        - refunding
+        - refund
+        - closed
+        in: query
+        name: status
+        type: string
+      - description: 'enums: unpaid paid shipping confirmed closed refund'
+        enum:
+        - unpaid
+        - paid
+        - shipping
+        - confirmed
+        - closed
+        - refunding
+        - refunded
+        - after_sale_refunding
+        - after_sale_refunded
+        in: query
+        name: sub_order_status
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/pkg.RespListWithPagination'
+            - properties:
+                results:
+                  items:
+                    $ref: '#/definitions/order.AggregateOrder'
+                  type: array
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 订单列表
+      tags:
+      - order
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/order.BodyCreateWithCaptcha'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/order.AggregateOrder'
+            - properties:
+                express:
+                  $ref: '#/definitions/express.Express'
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 创建订单
+      tags:
+      - order
+  /order/{order_no}:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: order no
+        in: path
+        name: order_no
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/order.QueryAggregateOrderList'
+      security:
+      - ApiKeyAuth: []
+      summary: 获取订单详情
+      tags:
+      - order
+    patch:
+      consumes:
+      - application/json
+      description: 修改订单基础信息，不包含费用以及状态
+      parameters:
+      - description: order no
+        in: path
+        name: order_no
+        required: true
+        type: string
+      - description: data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/order.BodyAggregateOrderUpdate'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/serializer.RespCommon'
+      security:
+      - ApiKeyAuth: []
+      summary: 修改订单信息
+      tags:
+      - order
+  /order/{order_no}/amount:
+    patch:
+      consumes:
+      - application/json
+      description: 只有未支付订单允许修改
+      parameters:
+      - description: order no
+        in: path
+        name: order_no
+        required: true
+        type: string
+      - description: data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/order.BodyAggregateOrderUpdateAmount'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/serializer.RespCommon'
+      security:
+      - ApiKeyAuth: []
+      summary: 修改订单金额
+      tags:
+      - order
+  /order/{order_no}/limit:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: Order no
+        in: path
+        name: order_no
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+      security:
+      - ApiKeyAuth: []
+      summary: 删除SKU限购
+      tags:
+      - order
+  /order/{order_no}/status:
+    patch:
+      consumes:
+      - application/json
+      parameters:
+      - description: order no
+        in: path
+        name: order_no
+        required: true
+        type: string
+      - description: data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/order.BodyAggregateOrderUpdateStatus'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/serializer.RespCommon'
+      security:
+      - ApiKeyAuth: []
+      summary: 修改订单状态
+      tags:
+      - order
+  /payment:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/payment.BodyPaymentCreate'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/payment.RespPaymentCreate'
+      security:
+      - ApiKeyAuth: []
+      summary: 统一支付
+      tags:
+      - payment
+  /producer:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: 'enums: id -id'
+        enum:
+        - id
+        - -id
+        in: query
+        name: ordering
+        type: string
+      - in: query
+        name: page_number
+        type: integer
+      - in: query
+        name: page_size
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/pagination.Resp'
+            - properties:
+                results:
+                  items:
+                    $ref: '#/definitions/producer.Producer'
+                  type: array
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 生产商信息列表
+      tags:
+      - producer
+  /product:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - in: query
+        name: id
+        type: integer
+      - in: query
+        name: ids
+        type: string
+      - in: query
+        name: is_top
+        type: boolean
+      - in: query
+        name: name__contains
+        type: string
+      - enum:
+        - create_time
+        - -create_time
+        - update_time
+        - -update_time
+        - status
+        - -status
+        - is_top
+        - -is_top
+        - is_hidden
+        - -is_hidden
+        - priority
+        - -priority
+        in: query
+        name: ordering
+        type: string
+      - in: query
+        name: page_number
+        type: integer
+      - in: query
+        name: page_size
+        type: integer
+      - in: query
+        name: producer_id
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/pkg.RespListWithPagination'
+            - properties:
+                results:
+                  items:
+                    $ref: '#/definitions/product.AggregateProduct'
+                  type: array
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 获取产品列表
+      tags:
+      - product
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/product.AggregateProduct'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/product.AggregateProduct'
+      security:
+      - ApiKeyAuth: []
+      summary: 创建产品
+      tags:
+      - product
+  /product-user-collection:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - enum:
+        - update_time
+        - -update_time
+        in: query
+        name: ordering
+        type: string
+      - in: query
+        name: page_number
+        type: integer
+      - in: query
+        name: page_size
+        type: integer
+      - in: query
+        name: phone
+        type: string
+      - in: query
+        name: productCode
+        type: string
+      - in: query
+        name: updateTimeEnd
+        type: string
+      - in: query
+        name: updateTimeStart
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/productusercollectionserializer.ProductUserCollection'
+            type: array
+      security:
+      - ApiKeyAuth: []
+      summary: 获取商品用户想要信息列表
+      tags:
+      - product-user-collection
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/productusercollectionserializer.ProductUserCollectionBody'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/productusercollectionserializer.ProductUserCollection'
+      security:
+      - ApiKeyAuth: []
+      summary: 商品用户想要信息收集
+      tags:
+      - product-user-collection
+  /product-user-collection/get:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: product code
+        in: path
+        name: code
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/productusercollectionserializer.ProductUserCollection'
+      security:
+      - ApiKeyAuth: []
+      summary: 获取商品用户想要信息
+      tags:
+      - product-user-collection
+  /product-user-collection/stat:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: product code
+        in: path
+        name: code
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/productusercollectionserializer.ProductUserCollectionStat'
+      security:
+      - ApiKeyAuth: []
+      summary: 商品用户想要信息收集统计
+      tags:
+      - product-user-collection
+  /product/{id}:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: Product id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+      security:
+      - ApiKeyAuth: []
+      summary: 删除产品
+      tags:
+      - product
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: Product id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/product.AggregateProduct'
+      security:
+      - ApiKeyAuth: []
+      summary: 获取产品详情
+      tags:
+      - product
+    patch:
+      consumes:
+      - application/json
+      parameters:
+      - description: Product id
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: body data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/product.AggregateProduct'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/product.AggregateProduct'
+      security:
+      - ApiKeyAuth: []
+      summary: 修改产品详情
+      tags:
+      - product
+  /product/{id}/whitelist:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: Product id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/whitelist.ProductWhiteList'
+      security:
+      - ApiKeyAuth: []
+      summary: 获取产品白名单用户
+      tags:
+      - product
+    post:
+      consumes:
+      - application/json
+      description: id 同时出现在add 和 remove时，会被删除
+      parameters:
+      - description: Product id
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/whitelist.ProductWhiteList'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/whitelist.ProductWhiteList'
+      security:
+      - ApiKeyAuth: []
+      summary: 设置产品白名单用户
+      tags:
+      - product
+  /profile:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/profile.Profile'
+      security:
+      - ApiKeyAuth: []
+      summary: 获取用户个人资料
+      tags:
+      - profile
+    patch:
+      consumes:
+      - application/json
+      parameters:
+      - description: body data
+        in: body
+        name: data
+        schema:
+          $ref: '#/definitions/profile.BodyProfile'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/profile.Profile'
+      security:
+      - ApiKeyAuth: []
+      summary: 修改用户配置信息
+      tags:
+      - profile
+  /refund:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/refund.BodyRefund'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/order.AggregateOrder'
+            - properties:
+                express:
+                  $ref: '#/definitions/express.Express'
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 创建退货/款单
+      tags:
+      - refund
+  /refund-order:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - in: query
+        name: order_no
+        type: string
+      - description: Order 使用 "-"来表示倒序排序，如 -id，多个字段用逗号","隔开，可选 id -id
+        enum:
+        - id
+        - -id
+        in: query
+        name: ordering
+        type: string
+      - in: query
+        name: page_number
+        type: integer
+      - in: query
+        name: page_size
+        type: integer
+      - in: query
+        name: sub_order_no
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/pkg.RespListWithPagination'
+            - properties:
+                results:
+                  items:
+                    $ref: '#/definitions/refundorder.RefundOrder'
+                  type: array
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 退货/款单 列表
+      tags:
+      - refund-order
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/refundorder.BodyRefundOrderCreateWithA'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/refundorder.RefundOrder'
+      security:
+      - ApiKeyAuth: []
+      summary: 创建退货/退款单
+      tags:
+      - refund-order
+  /refund-order/{refund_order_no}/status:
+    patch:
+      consumes:
+      - application/json
+      parameters:
+      - description: refund order no
+        in: path
+        name: refund_order_no
+        required: true
+        type: string
+      - description: data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/refundorder.BodyRefundOrderStatusUpdate'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/serializer.RespCommon'
+      security:
+      - ApiKeyAuth: []
+      summary: 修改订单状态
+      tags:
+      - refund-order
+  /sale:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/sale.BodyProductSaleList'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/pkg.RespListWithPagination'
+            - properties:
+                results:
+                  items:
+                    $ref: '#/definitions/sale.RespProductSale'
+                  type: array
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 销量统计
+      tags:
+      - sale
+  /sale/limit/{sku_id}:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: id
+        in: path
+        name: sku_id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+      security:
+      - ApiKeyAuth: []
+      summary: 删除SKU限购
+      tags:
+      - sale
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: id
+        in: path
+        name: sku_id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 获取SKU限购数量
+      tags:
+      - sale
+  /settings:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/settings.Settings'
+      security:
+      - ApiKeyAuth: []
+      summary: 获取系统配置
+      tags:
+      - settings
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/settings.Settings'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/settings.Settings'
+      security:
+      - ApiKeyAuth: []
+      summary: 设置系统配置
+      tags:
+      - settings
+  /shipping/{id}/status:
+    patch:
+      consumes:
+      - application/json
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/shipping.BodyUpdateStatus'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/shipping.Shipping'
+      security:
+      - ApiKeyAuth: []
+      summary: 修改邮费状态
+      tags:
+      - shipping
+  /special-list/blocked:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/blocked.UserList'
+      security:
+      - ApiKeyAuth: []
+      summary: 获取禁止购买名单用户
+      tags:
+      - special-list
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/blocked.UserList'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/blocked.UserList'
+      security:
+      - ApiKeyAuth: []
+      summary: 设置禁止购买名单用户
+      tags:
+      - special-list
+  /special-list/delay:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/delay.UserListInfo'
+      security:
+      - ApiKeyAuth: []
+      summary: 获取延迟购买用户列表信息
+      tags:
+      - special-list
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/delay.UserListInfo'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/delay.UserListInfo'
+      security:
+      - ApiKeyAuth: []
+      summary: 设置延迟购买名单用户
+      tags:
+      - special-list
+  /suborder-bulk:
+    patch:
+      consumes:
+      - application/json
+      parameters:
+      - description: data
+        in: body
+        name: data
+        required: true
+        schema:
+          items:
+            $ref: '#/definitions/suborder.BodyUpdateBulk'
+          type: array
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/suborder.SubOrder'
+            type: array
+      security:
+      - ApiKeyAuth: []
+      summary: 批量修改子订单 普通字段
+      tags:
+      - suborder
+  /suborder-bulk-product-snapshot:
+    patch:
+      consumes:
+      - application/json
+      parameters:
+      - description: data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/suborder.BodyBulkUpdateProductSnapShot'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/serializer.RespCommon'
+      security:
+      - ApiKeyAuth: []
+      summary: 批量修改子订单 产品快照
+      tags:
+      - suborder
+  /suborder/{sub_order_no}:
+    patch:
+      consumes:
+      - application/json
+      parameters:
+      - description: sub order no
+        in: path
+        name: sub_order_no
+        required: true
+        type: string
+      - description: data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/suborder.BodyUpdate'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/suborder.SubOrder'
+      security:
+      - ApiKeyAuth: []
+      summary: 修改子订单 普通字段
+      tags:
+      - suborder
+  /suborder/{sub_order_no}/address:
+    patch:
+      consumes:
+      - application/json
+      description: 只有未支付或支付状态（非发货状态下）下才能修改
+      parameters:
+      - description: order no
+        in: path
+        name: sub_order_no
+        required: true
+        type: string
+      - description: data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/suborder.BodySubOrderUpdateAddress'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/serializer.RespCommon'
+      security:
+      - ApiKeyAuth: []
+      summary: 修改子订单地址
+      tags:
+      - suborder
+  /suborder/{sub_order_no}/product-snapshot:
+    patch:
+      consumes:
+      - application/json
+      parameters:
+      - description: order no
+        in: path
+        name: sub_order_no
+        required: true
+        type: string
+      - description: data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/suborder.BodyUpdateProductSnapShot'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/serializer.RespCommon'
+      security:
+      - ApiKeyAuth: []
+      summary: 修改子订单 产品快照
+      tags:
+      - suborder
+  /suborder/{sub_order_no}/status:
+    patch:
+      consumes:
+      - application/json
+      parameters:
+      - description: order no
+        in: path
+        name: sub_order_no
+        required: true
+        type: string
+      - description: data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/suborder.BodySubOrderUpdateStatus'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/suborder.SubOrder'
+      security:
+      - ApiKeyAuth: []
+      summary: 修改子订单状态
+      tags:
+      - suborder
+  /upload/sign:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/upload.BodyOSSSign'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/alioss.PolicyToken'
+      security:
+      - ApiKeyAuth: []
+      summary: 获取文件上传签名
+      tags:
+      - upload
+  /user-coupon:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - in: query
+        name: coupon_activity_id
+        type: integer
+      - in: query
+        name: coupon_code
+        type: string
+      - in: query
+        name: coupon_id
+        type: integer
+      - in: query
+        name: id
+        type: integer
+      - enum:
+        - id
+        - -id
+        in: query
+        name: ordering
+        type: string
+      - in: query
+        name: page_number
+        type: integer
+      - in: query
+        name: page_size
+        type: integer
+      - enum:
+        - unused
+        - used
+        - expired
+        in: query
+        name: status
+        type: string
+      - in: query
+        name: user_id
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/pkg.RespListWithPagination'
+            - properties:
+                results:
+                  items:
+                    $ref: '#/definitions/usercoupon.UserCoupon'
+                  type: array
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 优惠券列表
+      tags:
+      - user-coupon
+  /user-coupon/match:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/usercoupon.BodyMatch'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/pkg.RespListWithPagination'
+            - properties:
+                results:
+                  items:
+                    $ref: '#/definitions/usercoupon.RespMatch'
+                  type: array
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 优惠券使用检查
+      tags:
+      - user-coupon
+  /user-coupon/x/{id}:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/usercoupon.UserCoupon'
+      security:
+      - ApiKeyAuth: []
+      summary: 优惠券详情
+      tags:
+      - user-coupon
+    patch:
+      consumes:
+      - application/json
+      description: 支持将未使用的优惠券进行销毁
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/usercoupon.BodyUpdateOne'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/usercoupon.UserCoupon'
+      security:
+      - ApiKeyAuth: []
+      summary: 更新用户优惠券
+      tags:
+      - user-coupon
+  /warehouse/order:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - in: query
+        name: address_consignee__contains
+        type: string
+      - in: query
+        name: address_phone__contains
+        type: string
+      - in: query
+        name: email__contains
+        type: string
+      - in: query
+        name: goods_code
+        type: string
+      - in: query
+        name: goods_name__contains
+        type: string
+      - in: query
+        name: order_no
+        type: string
+      - description: 'enums: id -id sn_code -sn_code'
+        enum:
+        - id
+        - -id
+        in: query
+        name: ordering
+        type: string
+      - in: query
+        name: page_number
+        type: integer
+      - in: query
+        name: page_size
+        type: integer
+      - in: query
+        name: platform_id
+        type: integer
+      - in: query
+        name: producer_id
+        type: integer
+      - in: query
+        name: sku_name__contains
+        type: string
+      - in: query
+        name: sub_order_no
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/pagination.Resp'
+            - properties:
+                results:
+                  items:
+                    $ref: '#/definitions/warehouseorder.WarehouseOrder'
+                  type: array
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 订单信息列表
+      tags:
+      - warehouse-order
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/warehouseorder.BodyCreate'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/warehouseorder.WarehouseOrder'
+      security:
+      - ApiKeyAuth: []
+      summary: 创建订单信息
+      tags:
+      - warehouse-order
+  /warehouse/order-bulk:
+    patch:
+      consumes:
+      - application/json
+      parameters:
+      - description: data
+        in: body
+        name: data
+        required: true
+        schema:
+          items:
+            $ref: '#/definitions/warehouseorder.BodyRequiredUpdate'
+          type: array
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            items:
+              $ref: '#/definitions/warehouseorder.WarehouseOrder'
+            type: array
+      security:
+      - ApiKeyAuth: []
+      summary: 批量更新订单信息
+      tags:
+      - warehouse-order
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: data
+        in: body
+        name: data
+        required: true
+        schema:
+          items:
+            $ref: '#/definitions/warehouseorder.WarehouseOrder'
+          type: array
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            items:
+              $ref: '#/definitions/warehouseorder.WarehouseOrder'
+            type: array
+      security:
+      - ApiKeyAuth: []
+      summary: 批量创建订单信息
+      tags:
+      - warehouse-order
+  /warehouse/order/{id}:
+    patch:
+      consumes:
+      - application/json
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/warehouseorder.BodyCreate'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/warehouseorder.WarehouseOrder'
+      security:
+      - ApiKeyAuth: []
+      summary: 更新订单信息
+      tags:
+      - warehouse-order
+  /warehouse/platform:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: 'enums: id -id'
+        enum:
+        - id
+        - -id
+        in: query
+        name: ordering
+        type: string
+      - in: query
+        name: page_number
+        type: integer
+      - in: query
+        name: page_size
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/pagination.Resp'
+            - properties:
+                results:
+                  items:
+                    $ref: '#/definitions/warehouseplatform.WarehousePlatform'
+                  type: array
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 发售平台信息列表
+      tags:
+      - warehouse-platform
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/warehouseplatform.BodyCreate'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/warehouseplatform.WarehousePlatform'
+      security:
+      - ApiKeyAuth: []
+      summary: 创建发售平台信息
+      tags:
+      - warehouse-platform
+  /warehouse/platform/{id}:
+    patch:
+      consumes:
+      - application/json
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/warehouseplatform.BodyUpdate'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/warehouseplatform.WarehousePlatform'
+      security:
+      - ApiKeyAuth: []
+      summary: 更新发售平台信息
+      tags:
+      - warehouse-platform
+  /warehouse/producer:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: 'enums: id -id'
+        enum:
+        - id
+        - -id
+        in: query
+        name: ordering
+        type: string
+      - in: query
+        name: page_number
+        type: integer
+      - in: query
+        name: page_size
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/pagination.Resp'
+            - properties:
+                results:
+                  items:
+                    $ref: '#/definitions/warehouseproducer.WarehouseProducer'
+                  type: array
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 生产商信息列表
+      tags:
+      - warehouse-producer
+securityDefinitions:
+  ApiKeyAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"
